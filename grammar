@@ -1,0 +1,56 @@
+PRIMITIVE      -> cube | cone | sphere | plane
+NUM            -> [0-9]+(\.[0−9]+)?
+CHAR           -> [a-zA-Z_/\\:]+
+ID             -> [a-zA-Z_]+
+ATTRIBUITION   -> ID = NUM; | ID = ID; | ID = ARI_EXP;
+NEGATION       -> !
+LOG_OP         -> || | &&
+LOG_ATTR       -> ID | NEGATION ID
+LOG_EXP        -> LOG_ATTR LOG_OP LOG_ATTR |
+                  LOG_ATTR LOG_OP LOG_EXP |
+                  (LOG_ATTR LOG_OP LOG_ATTR) |
+                  (LOG_ATTR LOG_OP LOG_EXP)
+
+ARI_OP         -> + | - | * | / | % | ^
+ARI_ATTR       -> ID | NUM
+ARI_EXP        -> ARI_ATTR ARI_OP ARI_ATTR |
+                  ARI_ATTR ARI_OP ARI_EXP |
+                  (ARI_ATTR ARI_OP ARI_ATTR) |
+                  (ARI_ATTR ARI_OP ARI_EXP)
+FOR_ARG        -> ID | NUM
+BLOCK          -> { COMMANDS }
+COMMANDS       -> COMMAND | COMMAND COMMANDS
+COMMAND        -> ATTRIBUITION |
+                  BLOCK |
+                  FOR |
+                  WHILE |
+                  IF |
+                  LOAD_MODEL |
+                  LOAD_PRIMITIVE |
+                  ADD_TIMELINE |
+                  ONE_ARG |
+                  GROUP |
+                  MV |
+                  ANIMATION |
+                  INTERPOLATE |
+                  CAM
+FOR            -> for (FOR_ARG, FOR_ARG, FOR_ARG) BLOCK
+EXP_ARG        -> 0 | 1 | LOG_EXP
+WHILE          -> while (EXP_ARG) BLOCK
+IF             -> if (EXP_ARG) BLOCK
+LOAD_MODEL     -> load_model CHAR ID;
+LOAD_PRIMITIVE -> load_primitive PRIMITIVE ID;
+ADD_TIMELINE   -> add_to_timeline ID NUM;
+ONE_ARG_OPS    -> set_default_camera | ungroup | drop
+ONE_ARG        -> ONE_ARG_OPS ID
+GROUP_ARGS     -> ID | ID GROUP_ARGS
+GROUP          -> group ID GROUP_ARGS;
+MV_OPS         -> translate | global_translate | rotate | scale
+MV             -> MV_OPS ID NUM NUM NUM;
+ANIMATION      -> animation ID { BLOCK }
+INTERPOLATE    -> interpolate NUM, ID; | interpolate NUM BLOCK
+CAM_3ARGS      -> position | direction | rotation
+CAM_1ARG       -> ratio | depth
+CAM_ARG        -> CAM_3ARGS: NUM, NUM, NUM; | CAM_1ARG: NUM;
+CAM_ARGS       -> CAM_ARG | CAM_ARG CAM_ARGS
+CAM            -> camera ID { CAM_ARGS }
