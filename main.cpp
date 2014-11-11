@@ -9,6 +9,7 @@
 
 #include "camera/camera.h"
 #include "scene/scene.h"
+#include "animation/animation.h"
 #include "input/input.h"
 
 #define WIDTH 900
@@ -16,8 +17,13 @@
 
 using namespace std;
 
-Camera* main_camera;
 InputController input_ctr;
+
+Camera* main_camera;
+Camera* other_camera;
+
+Animation* trans;
+Animation* rot;
 
 void* setup_sdl();
 void setup_gl();
@@ -30,18 +36,35 @@ int main(int argc, char** argv)
 	setup_gl();
 	glutInit(&argc, argv);
 
-	main_camera = new Camera(90, WIDTH, HEIGHT);
-
-	Scene::instance().add_camera("main", main_camera);
-	Scene::instance().set_default_camera(main_camera);
-	Scene::instance().default_camera()->reset_view(WIDTH, HEIGHT);
-
-
-	// tiny obj loader test
+	// load obj/primitive
 	SceneObject obj = SceneObject("obj");
 	tinyobj::LoadObj(obj.shapes(), obj.materials(), "tinyobjloader/cube.obj", NULL);
 
 	Scene::instance().add_object(obj.ident(), &obj);
+
+	// camera
+
+	main_camera = new Camera(90, WIDTH, HEIGHT);
+	Scene::instance().add_camera("main", main_camera);
+
+	other_camera = new Camera(90, WIDTH, HEIGHT);
+	Scene::instance().add_camera("other", other_camera);
+
+	Scene::instance().set_default_camera("main");
+	Scene::instance().default_camera()->reset_view(WIDTH, HEIGHT);
+
+	// animation
+
+	trans = new Animation("trans");
+	rot = new Animation("rot");
+
+	trans->add_action(ANIM_TRANSLATE, "obj", 0, 0, 5);
+	trans->add_action(ANIM_SCALE, "obj", 2, 2, 2);
+
+	rot->add_action(ANIM_ROTATE, "obj", 45, 45, 45);
+	rot->add_action(ANIM_SCALE, "obj", 3, 3, 3);
+
+	//TODO: TIMELINE STUFF
 
 	input_ctr = InputController();
 	while (1)

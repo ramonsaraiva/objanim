@@ -1,19 +1,22 @@
+#include <string>
 #include <vector>
 
 #include "animation.h"
 
-Animation::Animation()
+Animation::Animation(std::string ident)
 {
+	_ident = ident;
 }
 
-Animation::add_action(const int type, const float x, const float y, const float z)
+void Animation::add_action(const int type, std::string ident, const float x, const float y, const float z)
 {
 	action_t action;
 
 	action.type = type;
+	action.ident = ident;
 	action.x = x;
 	action.y = y;
-	aciton.z = z;
+	action.z = z;
 
 	_actions.push_back(action);
 }

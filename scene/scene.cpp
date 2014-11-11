@@ -34,9 +34,9 @@ void Scene::add_camera(std::string ident, Camera* camera)
 	_cameras[ident] = camera;
 }
 
-void Scene::set_default_camera(Camera* camera)
+void Scene::set_default_camera(std::string ident)
 {
-	_default_camera = camera;
+	_default_camera = _cameras[ident];
 }
 
 void Scene::add_object(std::string ident, SceneObject* object)

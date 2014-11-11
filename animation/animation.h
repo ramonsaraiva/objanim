@@ -5,11 +5,12 @@
 #define ANIM_ROTATE		1
 #define ANIM_SCALE		2
 
+#include <string>
 #include <vector>
 
 typedef struct action_s
 {
-
+	std::string ident;
 	int type;
 	float x;
 	float y;
@@ -19,12 +20,13 @@ typedef struct action_s
 class Animation
 {
 	public:
-		Animation();
+		Animation(std::string ident);
 		
-		public add_action(const int type, const float x, const float y, const float z);
+		void add_action(const int type, std::string ident, const float x, const float y, const float z);
 
 	private:
-		vector<action_t> _actions;
+		std::string _ident;
+		std::vector<action_t> _actions;
 };
 
 #endif
