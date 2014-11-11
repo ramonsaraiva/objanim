@@ -14,17 +14,14 @@
 #define WIDTH 900
 #define HEIGHT 700
 
+using namespace std;
+
 Camera* main_camera;
 InputController input_ctr;
 
 void* setup_sdl();
 void setup_gl();
 void render();
-
-vector<tinyobj::shape_t> shapes;
-vector<tinyobj::material_t> materials;
-
-using namespace std;
 
 int main(int argc, char** argv)
 {
@@ -35,15 +32,18 @@ int main(int argc, char** argv)
 
 	main_camera = new Camera(90, WIDTH, HEIGHT);
 
-	Scene::instance().add_camera(main_camera);
+	Scene::instance().add_camera("main", main_camera);
 	Scene::instance().set_default_camera(main_camera);
 	Scene::instance().default_camera()->reset_view(WIDTH, HEIGHT);
 
-	input_ctr = InputController();
 
 	// tiny obj loader test
-	tinyobj::LoadObj(shapes, materials, "tinyobjloader/cube.obj", NULL);
+	SceneObject obj = SceneObject("obj");
+	tinyobj::LoadObj(obj.shapes(), obj.materials(), "tinyobjloader/cube.obj", NULL);
 
+	Scene::instance().add_object(obj.ident(), &obj);
+
+	input_ctr = InputController();
 	while (1)
 	{
 		input_ctr.events();
@@ -136,7 +136,21 @@ void render()
 
 	Scene::instance().default_camera()->refresh_lookat();
 
-	glutSolidCube(2.0f);
+	// draw test
+	int max = 10;
+	for (int i = -max; i < max; i++)
+	{
+		for (int j = -max; j < max; j++)
+		{
+			for (int k = -max; k < max; k++)
+			{
+				glPushMatrix();
+					glTranslatef(i, j, k);
+					glutSolidCube(0.2f);
+				glPopMatrix();
+			}
+		}
+	}
 
 	SDL_GL_SwapBuffers( );
 }
