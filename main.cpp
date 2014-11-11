@@ -3,13 +3,17 @@
 #include <SDL/SDL.h>
 #include <GL/glew.h>
 #include <GL/glu.h>
+#include <GL/glut.h>
 
 #include "camera/camera.h"
+#include "scene/scene.h"
+#include "input/input.h"
 
 #define WIDTH 900
 #define HEIGHT 700
 
-Camera* cam;
+Camera* main_camera;
+InputController input_ctr;
 
 void* setup_sdl();
 void setup_gl();
@@ -22,11 +26,21 @@ int main(int argc, char** argv)
 	setup_sdl();
 	glewInit();
 	setup_gl();
+	glutInit(&argc, argv);
 
-	cam = new Camera(90, WIDTH, HEIGHT);
+	main_camera = new Camera(90, WIDTH, HEIGHT);
+
+	Scene::instance().add_camera(main_camera);
+	Scene::instance().set_default_camera(main_camera);
+	Scene::instance().default_camera()->reset_view(WIDTH, HEIGHT);
+
+	input_ctr = InputController();
 
 	while (1)
+	{
+		input_ctr.events();
 		render();
+	}
 
 	return 0;
 }
@@ -106,15 +120,15 @@ void* setup_sdl()
 
 void render()
 {
-	int i;
-
 	glClearDepth(1.0);
-	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	cam->refresh_lookat();
+	Scene::instance().default_camera()->refresh_lookat();
+
+	glutSolidCube(2.0f);
 
 	SDL_GL_SwapBuffers( );
 }

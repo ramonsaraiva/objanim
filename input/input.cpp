@@ -1,9 +1,15 @@
 #include <SDL/SDL.h>
 
 #include "input/input.h"
+#include "scene/scene.h"
 
 InputController::InputController()
 {
+	_moving_ws = 0;
+	_moving_da = 0;
+	_direction_ws = 0;
+	_direction_da = 0;
+	_looking = 0;
 }
 
 void InputController::events()
@@ -33,11 +39,9 @@ void InputController::events()
 	}
 
 	if (_moving_ws > 0)
-		//cam_move(controller.direction_ws);
-		return;
+		Scene::instance().default_camera()->move(_direction_ws);
 	if (_moving_da > 0)
-		//cam_strafe(controller.direction_da);
-		return;
+		Scene::instance().default_camera()->strafe(_direction_da);
 }
 
 void InputController::keyboard_down(SDL_KeyboardEvent event)
@@ -90,11 +94,11 @@ void InputController::mouse_down(SDL_MouseButtonEvent event)
 			break;
 
 		case SDL_BUTTON_WHEELUP:
-			//cam_move(1);
+			Scene::instance().default_camera()->move(1);
 			break;
 
 		case SDL_BUTTON_WHEELDOWN:
-			//cam_move(-1);
+			Scene::instance().default_camera()->move(-1);
 			break;
 	}
 }
@@ -109,9 +113,7 @@ void InputController::mousemotion(SDL_MouseMotionEvent event)
 {
 	if (_looking)
 	{
-		/*
-		cam_set_direction_y(-0.01 * event.yrel);
-		cam_change_angle(0.35 * event.xrel);
-		*/
+		Scene::instance().default_camera()->set_direction_y(-0.01 * event.yrel);
+		Scene::instance().default_camera()->set_angle(0.35 * event.xrel);
 	}
 }

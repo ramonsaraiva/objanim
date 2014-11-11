@@ -1,3 +1,4 @@
+#include <string.h>
 #include <math.h>
 
 #include <GL/glew.h>
@@ -6,13 +7,15 @@
 
 Camera::Camera(float angle, int width, int height)
 {
+	memset(_position, 0, 3 * sizeof(float));
+	memset(_direction, 0, 3 * sizeof(float));
+
 	_speed = 0.05;
 	_angle = angle;
 
 	refresh_direction();
-	reset_view(width, height);
 }
-:
+
 void Camera::reset_view(int width, int height)
 {
 	glViewport(0, 0, width, height);
@@ -40,7 +43,7 @@ void Camera::set_angle(float angle)
 
 void Camera::set_direction_y(float y)
 {
-	_direction[1] = y;
+	_direction[1] += y;
 	refresh_lookat();
 }
 

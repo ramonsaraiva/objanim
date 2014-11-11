@@ -1,5 +1,5 @@
 #ifndef CAMERA_H
-#define CAMERA_H
+#define CAMERA_H	1
 
 class Camera
 {
