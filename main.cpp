@@ -5,6 +5,8 @@
 #include <GL/glu.h>
 #include <GL/glut.h>
 
+#include "tinyobjloader/tiny_obj_loader.h"
+
 #include "camera/camera.h"
 #include "scene/scene.h"
 #include "input/input.h"
@@ -18,6 +20,9 @@ InputController input_ctr;
 void* setup_sdl();
 void setup_gl();
 void render();
+
+vector<tinyobj::shape_t> shapes;
+vector<tinyobj::material_t> materials;
 
 using namespace std;
 
@@ -35,6 +40,9 @@ int main(int argc, char** argv)
 	Scene::instance().default_camera()->reset_view(WIDTH, HEIGHT);
 
 	input_ctr = InputController();
+
+	// tiny obj loader test
+	tinyobj::LoadObj(shapes, materials, "tinyobjloader/cube.obj", NULL);
 
 	while (1)
 	{

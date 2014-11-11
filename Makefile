@@ -16,6 +16,9 @@ all: $(BINDIR)/objanim
 build:
 	mkdir -p $(OBJDIR) $(BINDIR)
 
+$(OBJDIR)/tiny_obj_loader.o: tinyobjloader/tiny_obj_loader.cc build
+	$(CC) $(CFLAGS) -o $(OBJDIR)/tiny_obj_loader.o -c tinyobjloader/tiny_obj_loader.cc
+
 $(OBJDIR)/camera.o: camera/camera.cpp build
 	$(CC) $(CFLAGS) -o $(OBJDIR)/camera.o -c camera/camera.cpp
 
@@ -28,8 +31,8 @@ $(OBJDIR)/input.o: input/input.cpp build
 $(OBJDIR)/main.o: main.cpp build
 	$(CC) $(CFLAGS) -o $(OBJDIR)/main.o -c main.cpp
 
-$(BINDIR)/objanim: $(OBJDIR)/camera.o $(OBJDIR)/scene.o $(OBJDIR)/input.o $(OBJDIR)/main.o
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $(BINDIR)/objanim $(LIBS) $(OBJDIR)/camera.o $(OBJDIR)/scene.o $(OBJDIR)/input.o $(OBJDIR)/main.o
+$(BINDIR)/objanim: $(OBJDIR)/tiny_obj_loader.o $(OBJDIR)/camera.o $(OBJDIR)/scene.o $(OBJDIR)/input.o $(OBJDIR)/main.o
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(BINDIR)/objanim $(LIBS) $(OBJDIR)/tiny_obj_loader.o $(OBJDIR)/camera.o $(OBJDIR)/scene.o $(OBJDIR)/input.o $(OBJDIR)/main.o
 
 clean:
 	rm -rf build
