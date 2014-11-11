@@ -58,11 +58,18 @@ int main(int argc, char** argv)
 	trans = new Animation("trans");
 	rot = new Animation("rot");
 
-	trans->add_action(ANIM_TRANSLATE, "obj", 0, 0, 5);
-	trans->add_action(ANIM_SCALE, "obj", 2, 2, 2);
+	Interpolation* interp = trans->add_interp();
+	interp->add_action(ANIM_TRANSLATE, "obj", 0, 0, 5);
+	interp->add_action(ANIM_SCALE, "obj", 2, 2, 2);
+	interp->set_time(5);
+	trans->add_action(ANIM_ROTATE, "obj", 90, 90, 90);
+
+	trans->dump();
 
 	rot->add_action(ANIM_ROTATE, "obj", 45, 45, 45);
 	rot->add_action(ANIM_SCALE, "obj", 3, 3, 3);
+
+	rot->dump();
 
 	//TODO: TIMELINE STUFF
 
