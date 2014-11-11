@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include <string>
-#include <vector>
+#include <map>
 
 #include "animation.h"
 
@@ -115,3 +115,17 @@ void Animation::dump()
 		}
 	}
 }
+
+//	Timeline
+
+void Timeline::add_animation(Animation* anim, int order)
+{
+	_animations[order] = anim;
+}
+
+std::map<int, Animation*>& Timeline::animations()
+{
+	return _animations;
+}
+
+

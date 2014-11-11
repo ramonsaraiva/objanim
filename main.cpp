@@ -72,6 +72,8 @@ int main(int argc, char** argv)
 	rot->dump();
 
 	//TODO: TIMELINE STUFF
+	Timeline::instance().add_animation(trans, 5);
+	Timeline::instance().add_animation(rot, 3);
 
 	input_ctr = InputController();
 	while (1)

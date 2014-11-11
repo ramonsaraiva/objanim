@@ -9,8 +9,8 @@
 #define ANIM_CTR_INTERP	1
 
 #include <string>
-#include <vector>
 #include <queue>
+#include <map>
 
 typedef struct action_s
 {
@@ -20,6 +20,8 @@ typedef struct action_s
 	float y;
 	float z;
 } action_t;
+
+//	 Interpolation
 
 class Interpolation
 {
@@ -37,6 +39,8 @@ class Interpolation
 		float _time;
 };
 
+//	 Animation
+
 class Animation
 {
 	public:
@@ -53,6 +57,30 @@ class Animation
 		std::queue<Interpolation> _interps;
 		std::queue<action_t> _actions;
 		std::queue<int> _controller;
+};
+
+//	Timeline
+
+class Timeline
+{
+	public:
+		static Timeline& instance()
+		{
+			static Timeline instance;
+			return instance;
+		}
+
+		void add_animation(Animation* anim, int order);
+
+	public:
+		std::map<int, Animation*>& animations();
+
+	private:
+		Timeline() {}
+		Timeline(Timeline const&);
+		void operator=(Timeline const&);
+
+		std::map<int, Animation*> _animations;
 };
 
 #endif
