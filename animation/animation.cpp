@@ -4,6 +4,7 @@
 #include <map>
 #include <vector>
 #include <algorithm>
+#include <pthread.h>
 
 #include <SDL/SDL.h>
 
@@ -26,7 +27,7 @@ void Interpolation::add_action(const int type, std::string obj, const float x, c
 	action.y = y;
 	action.z = z;
 
-	_actions.push(action);
+	_actions.push_back(action);
 }
 
 void Interpolation::set_time(float time)
@@ -34,7 +35,42 @@ void Interpolation::set_time(float time)
 	_time = time;
 }
 
-std::queue<action_t>& Interpolation::actions()
+void Interpolation::interpolate()
+{
+	int start = SDL_GetTicks();
+	int stop = start + (_time * 1000);
+	int now = start;
+
+	std::cout << "Interpolate.." << std::endl;
+	std::cout << "Start time: " << start << std::endl;
+	std::cout << "Stop time: " << stop << std::endl;
+
+	float x, y, z;
+
+	while (now < stop)
+	{
+		std::cout << "Interpolating: " << now << std::endl;
+		for (int i = 0; i < _actions.size(); i++)
+		{
+			action_t& action = _actions[i];
+			SceneObject* obj = Scene::instance().objects()[action.obj];
+
+			switch (action.type)
+			{
+				case ANIM_TRANSLATE:
+					x = (action.x * now) / stop;
+					y = (action.y * now) / stop;
+					z = (action.z * now) / stop;
+					obj->set_translate(x, y, z);
+					break;
+			}
+		}
+
+		now = SDL_GetTicks();
+	}
+}
+
+std::vector<action_t>& Interpolation::actions()
 {
 	return _actions;
 }
@@ -111,7 +147,7 @@ void Animation::animate()
 		{
 			Interpolation interp = _interps.front();
 
-			//interp
+			interp.interpolate();
 			
 			temp_interps.push(interp);
 			_interps.pop();
@@ -183,9 +219,7 @@ void Animation::dump()
 
 		for (int j = 0; j < actions_size; j++)
 		{
-			action = interp.actions().front();
-			interp.actions().pop();
-			interp.actions().push(action);
+			action = interp.actions()[j];
 			std::cout << "..... Action => " << action.type << " (SceneObject: " << action.obj << ") (Values: " << action.x << ", " << action.y << ", " << action.z << ")" << std::endl;
 		}
 	}

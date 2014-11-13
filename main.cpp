@@ -57,6 +57,7 @@ int main(int argc, char** argv)
 	Scene::instance().default_camera()->reset_view(WIDTH, HEIGHT);
 
 	// animation
+	/*
 	Animation* scale_at_5 = new Animation("scale at 5");
 	scale_at_5->add_action(ANIM_SCALE, "obj", 3.0, 1.0, 1.0);
 
@@ -75,6 +76,16 @@ int main(int argc, char** argv)
 	Timeline::instance().add_animation(scale_at_5, 13.0);
 	Timeline::instance().add_animation(scale_at_7, 15.0);
 	Timeline::instance().add_animation(scale_at_9, 16.0);
+	*/
+
+	Animation* gorda = new Animation("gorda");
+	Interpolation* i = gorda->add_interp();
+	i->add_action(ANIM_TRANSLATE, "obj", 10.0, 10.0, 10.0);
+	i->set_time(2.0f);
+
+	gorda->dump();
+
+	Timeline::instance().add_animation(gorda, 5.0);
 	Timeline::instance().start();
 
 	input_ctr = InputController();

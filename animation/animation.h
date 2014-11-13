@@ -9,6 +9,7 @@
 #define ANIM_CTR_INTERP	1
 
 #include <string>
+#include <vector>
 #include <queue>
 #include <map>
 
@@ -29,13 +30,14 @@ class Interpolation
 		Interpolation();
 		void add_action(const int type, std::string ident, const float x, const float y, const float z);
 		void set_time(float time);
+		void interpolate();
 
 	public:
-		std::queue<action_t>& actions();
+		std::vector<action_t>& actions();
 		float time();
 	
 	private:
-		std::queue<action_t> _actions;
+		std::vector<action_t> _actions;
 		float _time;
 };
 

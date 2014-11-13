@@ -6,7 +6,7 @@ CC = g++
 
 CFLAGS = -I. `pkg-config --cflags-only-I sdl`
 LDFLAGS = `pkg-config --libs-only-L sdl`
-LIBS = -lGLEW -lGLU -lglut `pkg-config --libs-only-l sdl`
+LIBS = -lGLEW -lGLU -lglut `pkg-config --libs-only-l sdl` -lpthread
 
 OBJDIR = build/objects/
 BINDIR = build/bin/
