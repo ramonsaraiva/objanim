@@ -22,9 +22,6 @@ InputController input_ctr;
 Camera* main_camera;
 Camera* other_camera;
 
-Animation* trans;
-Animation* rot;
-
 void* setup_sdl();
 void setup_gl();
 void render();
@@ -60,26 +57,25 @@ int main(int argc, char** argv)
 	Scene::instance().default_camera()->reset_view(WIDTH, HEIGHT);
 
 	// animation
+	Animation* scale_at_5 = new Animation("scale at 5");
+	scale_at_5->add_action(ANIM_SCALE, "obj", 3.0, 1.0, 1.0);
 
-	trans = new Animation("trans");
-	rot = new Animation("rot");
+	Animation* scale_at_7 = new Animation("scale at 7");
+	scale_at_7->add_action(ANIM_SCALE, "obj", 1.0, 3.0, 1.0);
 
-	Interpolation* interp = trans->add_interp();
-	interp->add_action(ANIM_TRANSLATE, "obj", 0, 0, 5);
-	interp->add_action(ANIM_SCALE, "obj", 2, 2, 2);
-	interp->set_time(5);
-	trans->add_action(ANIM_ROTATE, "obj", 90, 90, 90);
-
-	trans->dump();
-
-	rot->add_action(ANIM_ROTATE, "obj", 45, 45, 45);
-	rot->add_action(ANIM_SCALE, "obj", 3, 3, 3);
-
-	rot->dump();
-
-	//TODO: TIMELINE STUFF
-	Timeline::instance().add_animation(trans, 5.0);
-	Timeline::instance().add_animation(rot, 8.0);
+	Animation* scale_at_9 = new Animation("scale at 9");
+	scale_at_9->add_action(ANIM_SCALE, "obj", 1.0, 1.0, 3.0);
+	
+	//TODO: NEED TO PUSH ALL ACTIONS/INTERP BACK TO ANIMATION WHEN FINISHED TO REUSE IT
+	Timeline::instance().add_animation(scale_at_5, 3.0);
+	Timeline::instance().add_animation(scale_at_7, 4.0);
+	Timeline::instance().add_animation(scale_at_9, 7.0);
+	Timeline::instance().add_animation(scale_at_5, 9.0);
+	Timeline::instance().add_animation(scale_at_7, 10.0);
+	Timeline::instance().add_animation(scale_at_9, 11.0);
+	Timeline::instance().add_animation(scale_at_5, 13.0);
+	Timeline::instance().add_animation(scale_at_7, 15.0);
+	Timeline::instance().add_animation(scale_at_9, 16.0);
 	Timeline::instance().start();
 
 	input_ctr = InputController();

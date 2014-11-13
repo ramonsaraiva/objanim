@@ -8,6 +8,7 @@
 #include <SDL/SDL.h>
 
 #include "animation.h"
+#include "scene/scene.h"
 
 //	Interpolation
 
@@ -77,6 +78,37 @@ void Animation::add_action(const int type, std::string obj, const float x, const
 void Animation::animate()
 {
 	//will need threads?!
+	while (!_controller.empty())
+	{
+		int task = _controller.front();
+
+		if (task == ANIM_CTR_ACTION)
+		{
+			action_t action = _actions.front();
+			SceneObject* obj = Scene::instance().objects()[action.obj];
+
+			switch (action.type)
+			{
+				case ANIM_TRANSLATE:
+					obj->set_translate(action.x, action.y, action.z);
+					break;
+				case ANIM_ROTATE:
+					//obj->set_rotate(action.x, action.y, action.z);
+					break;
+				case ANIM_SCALE:
+					obj->set_scale(action.x, action.y, action.z);
+					break;
+			}
+
+			_actions.pop();
+		}
+		else
+		{
+			//interp
+		}
+
+		_controller.pop();
+	}
 }
 
 std::string Animation::ident()
@@ -156,8 +188,6 @@ void Timeline::update()
 		return;
 
 	int tick = SDL_GetTicks();
-
-	//std::cout << "TL start " << _start_tick << " TL now " << tick << std::endl;
 
 	for (int i = 0; i < _times.size(); i++)
 	{
