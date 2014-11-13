@@ -4,7 +4,8 @@
 #include <map>
 #include <vector>
 #include <algorithm>
-#include <pthread.h>
+#include <thread>
+#include <array>
 
 #include <SDL/SDL.h>
 
@@ -47,21 +48,60 @@ void Interpolation::interpolate()
 
 	float x, y, z;
 
+	std::map<std::string, std::array<float, 3>> s_translates;
+	std::map<std::string, std::array<float, 3>> s_rotates;
+	std::map<std::string, std::array<float, 3>> s_scales;
+
+	for (int i = 0; i < _actions.size(); i++)
+	{
+		action_t& action = _actions[i];
+		SceneObject* obj = Scene::instance().objects()[action.obj];
+
+		switch (action.type)
+		{
+			case ANIM_TRANSLATE:
+				s_translates[obj->ident()][0] = obj->translate()[0];
+				s_translates[obj->ident()][1] = obj->translate()[1];
+				s_translates[obj->ident()][2] = obj->translate()[2];
+				break;
+			case ANIM_ROTATE:
+				s_rotates[obj->ident()][0] = action.x;
+				s_rotates[obj->ident()][1] = action.y;
+				s_rotates[obj->ident()][2] = action.z;
+				break;
+			case ANIM_SCALE:
+				s_scales[obj->ident()][0] = action.x;
+				s_scales[obj->ident()][1] = action.y;
+				s_scales[obj->ident()][2] = action.z;
+				break;
+		}
+	}
+
+	std::cout << "initial translate of cube " << s_translates["obj"][0] << " " << s_translates["obj"][1] << " " << s_translates["obj"][2] << std::endl; 
+
 	while (now < stop)
 	{
-		std::cout << "Interpolating: " << now << std::endl;
 		for (int i = 0; i < _actions.size(); i++)
 		{
 			action_t& action = _actions[i];
 			SceneObject* obj = Scene::instance().objects()[action.obj];
 
+			x = (action.x * (now - start)) / (stop - start);
+			y = (action.y * (now - start)) / (stop - start);
+			z = (action.z * (now - start)) / (stop - start);
+
 			switch (action.type)
 			{
 				case ANIM_TRANSLATE:
-					x = (action.x * now) / stop;
-					y = (action.y * now) / stop;
-					z = (action.z * now) / stop;
-					obj->set_translate(x, y, z);
+					obj->set_translate(x + s_translates[obj->ident()][0],
+									   y + s_translates[obj->ident()][1],
+									   z + s_translates[obj->ident()][2]);
+					break;
+				case ANIM_ROTATE:
+					obj->set_rotate(x, y, z);
+					break;
+				case ANIM_SCALE:
+					obj->set_scale(x, y, z);
 					break;
 			}
 		}
@@ -176,6 +216,11 @@ void Animation::animate()
 	}
 }
 
+void Animation::animate_thread(void* args)
+{
+	static_cast<Animation*>(args)->animate();
+}
+
 std::string Animation::ident()
 {
 	return _ident;
@@ -260,8 +305,9 @@ void Timeline::update()
 
 		std::cout << "Running animation => " << _animations[_times[i]]->ident() << std::endl;
 
-		_animations[_times[i]]->animate();
-
+		std::thread anim_thr(Animation::animate_thread, _animations[_times[i]]);
+		anim_thr.detach();
+		
 		_running.push_back(_animations[_times[i]]);
 		_times.erase(_times.begin() + i);
 	}

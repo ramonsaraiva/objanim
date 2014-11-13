@@ -51,6 +51,7 @@ class Animation
 		Interpolation* add_interp();
 		void add_action(const int type, std::string ident, const float x, const float y, const float z);
 		void animate();
+		static void animate_thread(void* args);
 
 	public:
 		std::string ident();
@@ -61,6 +62,7 @@ class Animation
 		std::queue<Interpolation> _interps;
 		std::queue<action_t> _actions;
 		std::queue<int> _controller;
+
 };
 
 //	Timeline

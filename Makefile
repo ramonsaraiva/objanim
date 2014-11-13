@@ -4,9 +4,9 @@
 
 CC = g++
 
-CFLAGS = -I. `pkg-config --cflags-only-I sdl`
+CFLAGS = -I. -std=c++11 -pthread `pkg-config --cflags-only-I sdl`
 LDFLAGS = `pkg-config --libs-only-L sdl`
-LIBS = -lGLEW -lGLU -lglut `pkg-config --libs-only-l sdl` -lpthread
+LIBS = -lGLEW -lGLU -lglut `pkg-config --libs-only-l sdl`
 
 OBJDIR = build/objects/
 BINDIR = build/bin/

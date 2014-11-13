@@ -38,14 +38,7 @@ int main(int argc, char** argv)
 	obj.load_obj("cube.obj");
 	obj.build_vbo();
 
-	SceneObject x = SceneObject("x");
-	x.load_obj("cube.obj");
-	x.build_vbo();
-
 	Scene::instance().add_object(obj.ident(), &obj);
-	Scene::instance().add_object(x.ident(), &x);
-
-	// camera
 
 	main_camera = new Camera(90, WIDTH, HEIGHT);
 	Scene::instance().add_camera("main", main_camera);
@@ -56,36 +49,20 @@ int main(int argc, char** argv)
 	Scene::instance().set_default_camera("main");
 	Scene::instance().default_camera()->reset_view(WIDTH, HEIGHT);
 
-	// animation
-	/*
-	Animation* scale_at_5 = new Animation("scale at 5");
-	scale_at_5->add_action(ANIM_SCALE, "obj", 3.0, 1.0, 1.0);
-
-	Animation* scale_at_7 = new Animation("scale at 7");
-	scale_at_7->add_action(ANIM_SCALE, "obj", 1.0, 3.0, 1.0);
-
-	Animation* scale_at_9 = new Animation("scale at 9");
-	scale_at_9->add_action(ANIM_SCALE, "obj", 1.0, 1.0, 3.0);
-	
-	Timeline::instance().add_animation(scale_at_5, 3.0);
-	Timeline::instance().add_animation(scale_at_7, 4.0);
-	Timeline::instance().add_animation(scale_at_9, 7.0);
-	Timeline::instance().add_animation(scale_at_5, 9.0);
-	Timeline::instance().add_animation(scale_at_7, 10.0);
-	Timeline::instance().add_animation(scale_at_9, 11.0);
-	Timeline::instance().add_animation(scale_at_5, 13.0);
-	Timeline::instance().add_animation(scale_at_7, 15.0);
-	Timeline::instance().add_animation(scale_at_9, 16.0);
-	*/
-
 	Animation* gorda = new Animation("gorda");
+
 	Interpolation* i = gorda->add_interp();
-	i->add_action(ANIM_TRANSLATE, "obj", 10.0, 10.0, 10.0);
-	i->set_time(2.0f);
+	i->add_action(ANIM_TRANSLATE, "obj", 5.0, 5.0, 5.0);
+	i->set_time(10.0f);
+
+	Interpolation* i2 = gorda->add_interp();
+	i2->add_action(ANIM_TRANSLATE, "obj", 0.0, 0.0, 0.0);
+	i2->set_time(10.0f);
+
 
 	gorda->dump();
 
-	Timeline::instance().add_animation(gorda, 5.0);
+	Timeline::instance().add_animation(gorda, 3.0);
 	Timeline::instance().start();
 
 	input_ctr = InputController();

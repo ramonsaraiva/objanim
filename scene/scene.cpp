@@ -149,6 +149,21 @@ std::vector<tinyobj::material_t>& SceneObject::materials()
 	return _materials;
 }
 
+float* SceneObject::translate()
+{
+	return _translate;
+}
+
+float* SceneObject::rotate()
+{
+	return _rotate;
+}
+
+float* SceneObject::scale()
+{
+	return _scale;
+}
+
 //	Scene
 
 void Scene::add_camera(std::string ident, Camera* camera)

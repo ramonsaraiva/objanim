@@ -29,6 +29,9 @@ class SceneObject
 		std::string ident();
 		std::vector<tinyobj::shape_t>& shapes();
 		std::vector<tinyobj::material_t>& materials();
+		float* translate();
+		float* rotate();
+		float* scale();
 	
 	private:
 		std::string _ident;
