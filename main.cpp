@@ -66,7 +66,6 @@ int main(int argc, char** argv)
 	Animation* scale_at_9 = new Animation("scale at 9");
 	scale_at_9->add_action(ANIM_SCALE, "obj", 1.0, 1.0, 3.0);
 	
-	//TODO: NEED TO PUSH ALL ACTIONS/INTERP BACK TO ANIMATION WHEN FINISHED TO REUSE IT
 	Timeline::instance().add_animation(scale_at_5, 3.0);
 	Timeline::instance().add_animation(scale_at_7, 4.0);
 	Timeline::instance().add_animation(scale_at_9, 7.0);

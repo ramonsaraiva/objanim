@@ -77,6 +77,10 @@ void Animation::add_action(const int type, std::string obj, const float x, const
 
 void Animation::animate()
 {
+	std::queue<int> temp_tasks;
+	std::queue<action_t> temp_actions;
+	std::queue<Interpolation> temp_interps;
+	
 	//will need threads?!
 	while (!_controller.empty())
 	{
@@ -100,14 +104,39 @@ void Animation::animate()
 					break;
 			}
 
+			temp_actions.push(action);
 			_actions.pop();
 		}
 		else
 		{
+			Interpolation interp = _interps.front();
+
 			//interp
+			
+			temp_interps.push(interp);
+			_interps.pop();
 		}
 
+		temp_tasks.push(task);
 		_controller.pop();
+	}
+
+	while (!temp_tasks.empty())
+	{
+		_controller.push(temp_tasks.front());
+		temp_tasks.pop();
+	}
+
+	while (!temp_actions.empty())
+	{
+		_actions.push(temp_actions.front());
+		temp_actions.pop();
+	}
+
+	while (!temp_interps.empty())
+	{
+		_interps.push(temp_interps.front());
+		temp_interps.pop();
 	}
 }
 
