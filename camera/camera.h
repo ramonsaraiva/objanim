@@ -6,6 +6,7 @@ class Camera
 	public:
 		Camera(float angle, int width, int height);
 
+		void set_position(float x, float y, float z);
 		void set_angle(float angle);
 		void set_direction_y(float y);
 		void move(int direction);

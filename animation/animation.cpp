@@ -2,6 +2,10 @@
 
 #include <string>
 #include <map>
+#include <vector>
+#include <algorithm>
+
+#include <SDL/SDL.h>
 
 #include "animation.h"
 
@@ -70,6 +74,16 @@ void Animation::add_action(const int type, std::string obj, const float x, const
 	_controller.push(ANIM_CTR_ACTION);
 }
 
+void Animation::animate()
+{
+	//will need threads?!
+}
+
+std::string Animation::ident()
+{
+	return _ident;
+}
+
 void Animation::dump()
 {
 	int controller_size;
@@ -118,14 +132,49 @@ void Animation::dump()
 
 //	Timeline
 
-void Timeline::add_animation(Animation* anim, int order)
+void Timeline::add_animation(Animation* anim, int start)
 {
-	_animations[order] = anim;
+	_animations[start] = anim;
 }
 
-std::map<int, Animation*>& Timeline::animations()
+void Timeline::start()
+{
+	_started = 1;
+	_start_tick = SDL_GetTicks();
+
+	typedef std::map<float, Animation*>::iterator it_type;
+	for (it_type i = _animations.begin(); i != _animations.end(); i++)
+		_times.push_back(i->first);
+}
+
+void Timeline::update()
+{
+	if (!_started)
+		return;
+
+	if (!_times.size())
+		return;
+
+	int tick = SDL_GetTicks();
+
+	//std::cout << "TL start " << _start_tick << " TL now " << tick << std::endl;
+
+	for (int i = 0; i < _times.size(); i++)
+	{
+		int delta = tick - _start_tick;
+		if (delta / 1000 < _times[i])
+			continue;
+
+		std::cout << "Running animation => " << _animations[_times[i]]->ident() << std::endl;
+
+		_animations[_times[i]]->animate();
+
+		_running.push_back(_animations[_times[i]]);
+		_times.erase(_times.begin() + i);
+	}
+}
+
+std::map<float, Animation*>& Timeline::animations()
 {
 	return _animations;
 }
-
-

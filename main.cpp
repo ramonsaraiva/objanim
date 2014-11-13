@@ -38,9 +38,15 @@ int main(int argc, char** argv)
 
 	// load obj/primitive
 	SceneObject obj = SceneObject("obj");
-	tinyobj::LoadObj(obj.shapes(), obj.materials(), "tinyobjloader/cube.obj", NULL);
+	obj.load_obj("cube.obj");
+	obj.build_vbo();
+
+	SceneObject x = SceneObject("x");
+	x.load_obj("cube.obj");
+	x.build_vbo();
 
 	Scene::instance().add_object(obj.ident(), &obj);
+	Scene::instance().add_object(x.ident(), &x);
 
 	// camera
 
@@ -72,13 +78,15 @@ int main(int argc, char** argv)
 	rot->dump();
 
 	//TODO: TIMELINE STUFF
-	Timeline::instance().add_animation(trans, 5);
-	Timeline::instance().add_animation(rot, 3);
+	Timeline::instance().add_animation(trans, 5.0);
+	Timeline::instance().add_animation(rot, 8.0);
+	Timeline::instance().start();
 
 	input_ctr = InputController();
 	while (1)
 	{
 		input_ctr.events();
+		Timeline::instance().update();
 		render();
 	}
 
@@ -169,6 +177,7 @@ void render()
 	Scene::instance().default_camera()->refresh_lookat();
 
 	// draw test
+	/*
 	int max = 10;
 	for (int i = -max; i < max; i++)
 	{
@@ -183,6 +192,9 @@ void render()
 			}
 		}
 	}
+	*/
+
+	Scene::instance().render();
 
 	SDL_GL_SwapBuffers( );
 }

@@ -5,6 +5,8 @@
 #include <vector>
 #include <map>
 
+#include <GL/glew.h>
+
 #include "tinyobjloader/tiny_obj_loader.h"
 
 #include "camera/camera.h"
@@ -15,6 +17,15 @@ class SceneObject
 {
 	public:
 		SceneObject(std::string ident);
+		void set_translate(const float x, const float y, const float z);
+		void set_rotate(const float x, const float y, const float z);
+		void set_scale(const float x, const float y, const float z);
+		void set_angle(const float a);
+		void load_obj(const char* file);
+		void build_vbo();
+		void render();
+
+	public:
 		std::string ident();
 		std::vector<tinyobj::shape_t>& shapes();
 		std::vector<tinyobj::material_t>& materials();
@@ -23,6 +34,14 @@ class SceneObject
 		std::string _ident;
 		std::vector<tinyobj::shape_t> _shapes;
 		std::vector<tinyobj::material_t> _materials;
+		GLuint _geo_vboid;
+		GLuint _idx_vboid;
+		int _idx_size;
+
+		float _translate[3];
+		float _rotate[3];
+		float _scale[3];
+		float _angle;
 };
 
 //	Scene
@@ -42,6 +61,7 @@ class Scene
 		void add_object(std::string ident, SceneObject* object);
 
 	public:
+		void render();
 		Camera* default_camera();
 		std::map<std::string, SceneObject*>& objects();
 

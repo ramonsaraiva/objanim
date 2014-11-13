@@ -48,8 +48,10 @@ class Animation
 		
 		Interpolation* add_interp();
 		void add_action(const int type, std::string ident, const float x, const float y, const float z);
+		void animate();
 
 	public:
+		std::string ident();
 		void dump();
 
 	private:
@@ -71,16 +73,23 @@ class Timeline
 		}
 
 		void add_animation(Animation* anim, int order);
+		void start();
+		void update();
 
 	public:
-		std::map<int, Animation*>& animations();
+		std::map<float, Animation*>& animations();
 
 	private:
 		Timeline() {}
 		Timeline(Timeline const&);
 		void operator=(Timeline const&);
 
-		std::map<int, Animation*> _animations;
+		std::map<float, Animation*> _animations;
+		std::vector<Animation*> _running;
+		std::vector<Animation*> _stopped;
+		std::vector<float> _times;
+		int _started;
+		int _start_tick;
 };
 
 #endif

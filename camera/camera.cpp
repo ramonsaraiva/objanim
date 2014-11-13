@@ -16,6 +16,13 @@ Camera::Camera(float angle, int width, int height)
 	refresh_direction();
 }
 
+void Camera::set_position(float x, float y, float z)
+{
+	_position[0] = x;
+	_position[1] = y;
+	_position[2] = z;
+}
+
 void Camera::reset_view(int width, int height)
 {
 	glViewport(0, 0, width, height);
