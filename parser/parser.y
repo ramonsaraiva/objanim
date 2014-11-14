@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <string>
 #include <iostream>
+#include "code_generator.h"
+
+CodeGenerador cg = CodeGenerador();
 extern int yylex();
 void yyerror(const char *s) { printf("ERROR: %s\n", s); }
 
@@ -20,7 +23,7 @@ void yyerror(const char *s) { printf("ERROR: %s\n", s); }
 %start program
 %%
 
-program : COMMANDS;
+program : COMMANDS { std::cout << cg.generate();};
 
 ATTRIBUITION :               TIDENTIFIER TEQUAL TDOUBLE TEOS { std::cout << "int " << *$1 << "=" << *$3 << ";" << std::endl; }
                              | TIDENTIFIER TEQUAL TIDENTIFIER TEOS
@@ -86,14 +89,14 @@ IF:                          TIF TLPARENT EXPRESSION_ARG TRPARENT BLOCK
                              ;
 LOAD_MODEL :                 TLOAD_MODEL TCHAR TIDENTIFIER TEOS;
 
-LOAD_PRIMITIVE:  TLOAD_PRIMITIVE TPRIMITIVE TIDENTIFIER TEOS { std::cout << "Primitive " << *$3 << " = new Primitive(" << *$2 << ");" << std::endl; };
+LOAD_PRIMITIVE:  TLOAD_PRIMITIVE TPRIMITIVE TIDENTIFIER TEOS { if (!cg.addPrimitive(*$2, *$3)) yyerror("teste"); };
 
 ADD_TIMELINE: TADD_TO_TIMELINE TIDENTIFIER TDOUBLE TEOS;
 
 ONE_ARG_OPS: TSET_DEFAULT_CAMERA;
 
 ONE_ARG: ONE_ARG_OPS TIDENTIFIER;
-MV:             TMV_OP TIDENTIFIER TDOUBLE TDOUBLE TDOUBLE TEOS { std::cout << *$2 << "->" <<  *$1 << "(" <<  *$3 << ", " << *$4 << ", " << *$5 <<");" << std::endl; };
+MV:             TMV_OP TIDENTIFIER TDOUBLE TDOUBLE TDOUBLE TEOS { cg.move(*$1, *$2, *$3, *$4, *$5) };
 ANIMATION:      TANIMATION TIDENTIFIER TLBRACE BLOCK TRBRACE TEOS;
 INTERPOLATE:    TINTERPOLATE TDOUBLE TCOMA TIDENTIFIER TEOS | TINTERPOLATE TDOUBLE BLOCK
                 ;

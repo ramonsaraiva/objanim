@@ -1,7 +1,7 @@
 all: parser
 
-parser: parser.cpp lexer.cpp main.cpp
-	g++ -o parser parser.cpp lexer.cpp main.cpp
+parser: parser.cpp lexer.cpp main.cpp code_generator.cpp
+	g++ -o parser parser.cpp lexer.cpp main.cpp code_generator.cpp
 parser.cpp: parser.y
 	bison -d -o parser.cpp parser.y
 lexer.cpp: parser.cpp lexer.lex
