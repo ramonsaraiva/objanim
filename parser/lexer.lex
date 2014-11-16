@@ -8,11 +8,14 @@
 #include "parser.hpp"
 #define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
 #define TOKEN(t) (yylval.token = t)
+
+int linenum = 1;
 //extern "C" int yywrap(){ }
 %}
 
 %%
-[ \t\n] ;
+[ \t] ;
+\n {linenum++;} ;
 [0-9]+(\.[0-9]+)? SAVE_TOKEN; return TDOUBLE;
 (cube|cone|sphere|plane) SAVE_TOKEN; return TPRIMITIVE;
 "=" return TEQUAL;

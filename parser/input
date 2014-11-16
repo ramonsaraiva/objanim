@@ -10,8 +10,9 @@ camera a {
     depth: 100;
 }
 
-animation trans{
+global_translate cubo 0 0 3;
 
+animation trans{
     interpolate 5 {
         translate cubo 0 0 5;
     }
