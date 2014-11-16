@@ -50,7 +50,7 @@ string Animation::generateInterpolation(Interpolation *i)
 {
     string iName = Interpolation::getName();
     string result = "Interpolation *" + iName + " = " + getName() + "->add_interp();\n";
-    result += iName + "->setTime(" + i->getTime() + ");\n";
+    result += iName + "->set_time(" + i->getTime() + ");\n";
     Commands *cmds = i->getBlock()->getCommands();
     CommandsIterator ci = cmds->begin();
     for (; ci != cmds->end(); ++ci) {

@@ -1,6 +1,6 @@
 #include "model.h"
 
-Model::Model(string varName, string modelName, bool isPrimitive)
+Model::Model(string modelName, string varName, bool isPrimitive)
 {
     setName(varName);
     type = TYPE;

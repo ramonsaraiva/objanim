@@ -11,7 +11,7 @@ class Model : public Command, public Object
 {
     public:
         static const int TYPE = 5;
-        Model(string varName, string modelName, bool isPrimitive);
+        Model(string modelName, string varName, bool isPrimitive);
         string generate();
     private:
         bool primitive;

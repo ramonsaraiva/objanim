@@ -112,7 +112,7 @@ DEFAULT_CAM:                 TSET_DEFAULT_CAMERA TIDENTIFIER TEOS { $$ = new Gen
                              ;
 
 
-ADD_TIMELINE:                TADD_TO_TIMELINE TIDENTIFIER TDOUBLE TEOS { $$ = new GeneralCommand("Timeline::instance().add_animation(" + *$2 + ", " + *$3 + ");"); }
+ADD_TIMELINE:                TADD_TO_TIMELINE TIDENTIFIER TDOUBLE TEOS { $$ = new GeneralCommand("Timeline::instance().add_animation(" + Object::makeName(*$2) + ", " + *$3 + ");"); }
                              ;
 
 CAM_ARG:                     TCAM_3ARGS TPOINTS TDOUBLE TDOUBLE TDOUBLE TEOS { $$ = new CamArg(*$1); $$->addArg(*$3); $$->addArg(*$4); $$->addArg(*$5); }
