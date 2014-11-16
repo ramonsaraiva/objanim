@@ -176,6 +176,11 @@ void Scene::set_default_camera(std::string ident)
 	_default_camera = _cameras[ident];
 }
 
+void Scene::set_default_camera(Camera* cam)
+{
+	_default_camera = cam;
+}
+
 void Scene::add_object(std::string ident, SceneObject* object)
 {
 	_objects[ident] = object;

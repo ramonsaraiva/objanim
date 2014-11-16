@@ -60,6 +60,7 @@ class Scene
 
 		void add_camera(std::string ident, Camera* camera);
 		void set_default_camera(std::string ident);
+		void set_default_camera(Camera* cam);
 
 		void add_object(std::string ident, SceneObject* object);
 

@@ -13,6 +13,8 @@
 #include <queue>
 #include <map>
 
+#include "camera/camera.h"
+
 typedef struct action_s
 {
 	std::string obj;
@@ -76,7 +78,8 @@ class Timeline
 			return instance;
 		}
 
-		void add_animation(Animation* anim, int order);
+		void add_animation(Animation* anim, float start);
+		void add_camera(Camera* cam, float start);
 		void start();
 		void update();
 
@@ -89,8 +92,8 @@ class Timeline
 		void operator=(Timeline const&);
 
 		std::map<float, Animation*> _animations;
-		std::vector<Animation*> _running;
-		std::vector<Animation*> _stopped;
+		std::map<float, Camera*> _cameras;
+
 		std::vector<float> _times;
 		int _started;
 		int _start_tick;

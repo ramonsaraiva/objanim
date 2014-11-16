@@ -41,6 +41,7 @@ int main(int argc, char** argv)
 
 	other_camera = new Camera(90, WIDTH, HEIGHT);
 	Scene::instance().add_camera("other", other_camera);
+	other_camera->set_position(0.0f, 0.0f, -10.0f);
 
 	Scene::instance().set_default_camera("main");
 	Scene::instance().default_camera()->reset_view(WIDTH, HEIGHT);
@@ -51,10 +52,8 @@ int main(int argc, char** argv)
 	cube->load_obj("cube.obj");
 	cube->build_vbo();
 
-
 //	Add object to scene
 	Scene::instance().add_object(cube->ident(), cube);
-
 
 //	Cube animation
 	Animation* cube_anim = new Animation("cube translate");
@@ -71,8 +70,9 @@ int main(int argc, char** argv)
 	cube_interp_back->add_action(ANIM_SCALE, "cube", 1.0, 1.0, 1.0);
 	cube_interp_back->set_time(5.0f);
 
-	Timeline::instance().add_animation(cube_anim, 2.0f);
-	Timeline::instance().add_animation(cube_anim_back, 7.0f);
+	Timeline::instance().add_camera(other_camera, 5.0f);
+	Timeline::instance().add_animation(cube_anim, 10.0f);
+	Timeline::instance().add_animation(cube_anim_back, 15.0f);
 	Timeline::instance().start();
 
 	input_ctr = InputController();
