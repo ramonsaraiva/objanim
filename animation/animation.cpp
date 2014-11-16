@@ -98,7 +98,14 @@ void Interpolation::interpolate()
 									   z + s_translates[obj->ident()][2]);
 					break;
 				case ANIM_ROTATE:
-					obj->set_rotate(x, y, z);
+					x = ((action.x - s_rotates[obj->ident()][0]) * (now - start)) / (stop - start);
+					y = ((action.y - s_rotates[obj->ident()][1]) * (now - start)) / (stop - start);
+					z = ((action.z - s_rotates[obj->ident()][2]) * (now - start)) / (stop - start);
+
+
+					obj->set_rotate(x + s_rotates[obj->ident()][0],
+								   y + s_rotates[obj->ident()][1],
+								   z + s_rotates[obj->ident()][2]);
 					break;
 				case ANIM_SCALE:
 					x = ((action.x - s_scales[obj->ident()][0]) * (now - start)) / (stop - start);
@@ -279,9 +286,14 @@ void Animation::dump()
 
 //	Timeline
 
-void Timeline::add_animation(Animation* anim, int start)
+void Timeline::add_animation(Animation* anim, float start)
 {
 	_animations[start] = anim;
+}
+
+void Timeline::add_camera(Camera* cam, float start)
+{
+	_cameras[start] = cam;
 }
 
 void Timeline::start()
@@ -289,9 +301,21 @@ void Timeline::start()
 	_started = 1;
 	_start_tick = SDL_GetTicks();
 
-	typedef std::map<float, Animation*>::iterator it_type;
-	for (it_type i = _animations.begin(); i != _animations.end(); i++)
-		_times.push_back(i->first);
+	typedef std::map<float, Animation*>::iterator it_type_a;
+	typedef std::map<float, Camera*>::iterator it_type_c;
+
+	for (it_type_a i = _animations.begin(); i != _animations.end(); i++)
+	{
+		if (!(std::find(_times.begin(), _times.end(), i->first) != _times.end()))
+			_times.push_back(i->first);
+	}
+
+
+	for (it_type_c i = _cameras.begin(); i != _cameras.end(); i++)
+	{
+		if (!(std::find(_times.begin(), _times.end(), i->first) != _times.end()))
+			_times.push_back(i->first);
+	}
 }
 
 void Timeline::update()
@@ -310,12 +334,28 @@ void Timeline::update()
 		if (delta / 1000 < _times[i])
 			continue;
 
-		std::cout << "Running animation => " << _animations[_times[i]]->ident() << std::endl;
+//		check if key is in _animations
 
-		std::thread anim_thr(Animation::animate_thread, _animations[_times[i]]);
-		anim_thr.detach();
+		std::map<float, Animation*>::iterator it_a = _animations.find(_times[i]);
+		if (it_a != _animations.end())
+		{
+//			key is an animation
+			std::cout << "Running animation => " << _animations[_times[i]]->ident() << std::endl;
+
+			std::thread anim_thr(Animation::animate_thread, _animations[_times[i]]);
+			anim_thr.detach();
+		}
+
+		std::map<float, Camera*>::iterator it_c = _cameras.find(_times[i]);
+		if (it_c != _cameras.end())
+		{
+//			key is a camera
+			std::cout << "Changing camera..." << std::endl;
+
+			Scene::instance().set_default_camera(_cameras[_times[i]]);
+		}
+
 		
-		_running.push_back(_animations[_times[i]]);
 		_times.erase(_times.begin() + i);
 	}
 }
