@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
+#include "lib/program.h"
 #include "parser.hpp"
 #define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
 #define TOKEN(t) (yylval.token = t)
@@ -42,7 +43,7 @@
 "animation" return TANIMATION;
 "interpolate" return TINTERPOLATE;
 "if" return TIF;
-"camera" return TCAMERA;
+"camera" SAVE_TOKEN; return TCAMERA;
 (translate|global_translate|rotate|scale) SAVE_TOKEN; return TMV_OP;
 (position|direction|rotation) SAVE_TOKEN; return TCAM_3ARGS;
 (ratio|depth) SAVE_TOKEN; return TCAM_1ARG;
