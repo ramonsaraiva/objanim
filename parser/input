@@ -1,0 +1,48 @@
+load_primitive cube cubo;
+
+global_translate cubo 0 0 3;
+
+camera a {
+    position: 0 0 0;
+    direction: 0 0 1;
+    rotation: 0 0 0;
+    ratio: 1.1;
+    depth: 100;
+}
+
+global_translate cubo 0 0 3;
+
+animation trans{
+    interpolate 5 {
+        translate cubo 0 0 5;
+    }
+
+}
+
+animation rot{
+
+    interpolate 5 {
+        rotate cubo 45 45 45;
+        scale cubo 3 3 3;
+
+    }
+
+}
+
+animation trans2 {
+
+    interpolate 5 {
+        translate cubo 0 5 0;
+    }
+
+}
+
+
+add_to_timeline trans 2;
+
+add_to_timeline rot 7;
+
+add_to_timeline trans 212;
+
+set_default_camera a;
+
