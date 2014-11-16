@@ -60,7 +60,7 @@ int main(int argc, char** argv)
 	Interpolation* cube_interp = cube_anim->add_interp();
 
 	cube_interp->add_action(ANIM_TRANSLATE, "cube", 0.0, 5.0, 0.0);
-	cube_interp->add_action(ANIM_SCALE, "cube", 0.1, 0.1, 0.1);
+	cube_interp->add_action(ANIM_ROTATE, "cube", 0.0, 900.1, 0.1);
 	cube_interp->set_time(5.0f);
 
 	Animation* cube_anim_back = new Animation("cube translate back");
@@ -68,7 +68,7 @@ int main(int argc, char** argv)
 
 	cube_interp_back->add_action(ANIM_TRANSLATE, "cube", 0.0, 0.0, 0.0);
 	cube_interp_back->add_action(ANIM_SCALE, "cube", 1.0, 1.0, 1.0);
-	cube_interp_back->add_action(ANIM_ROTATE, "cube", 90.0, 45.0, 180.0);
+	cube_interp_back->add_action(ANIM_ROTATE, "cube", 0.0, 0.0, 0.0);
 	cube_interp_back->set_time(5.0f);
 
 	Timeline::instance().add_camera(other_camera, 5.0f);

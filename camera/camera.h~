@@ -4,7 +4,6 @@
 class Camera
 {
 	public:
-		Camera();
 		Camera(float angle, int width, int height);
 
 		void set_position(float x, float y, float z);

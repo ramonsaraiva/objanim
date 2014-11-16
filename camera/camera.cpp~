@@ -5,13 +5,6 @@
 
 #include "camera.h"
 
-Camera::Camera()
-{
-	memset(_position, 0, 3 * sizeof(float));
-	memset(_direction, 0, 3 * sizeof(float));
-
-	_speed = 0.05;
-}
 
 Camera::Camera(float angle, int width, int height)
 {
@@ -31,13 +24,11 @@ void Camera::set_position(float x, float y, float z)
 	_position[2] = z;
 }
 
-void Camera::set_depth(float depth)
-{
+void Camera::set_depth(float depth){
 	_depth = depth;
 }
 
-void Camera::set_direction(float dx, float dy, float dz)
-{
+void Camera::set_direction(float dx, float dy, float dz){
 	_direction[0] = dx;
 	_direction[1] = dy;
 	_direction[2] = dz;

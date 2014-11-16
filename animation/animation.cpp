@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <thread>
 #include <array>
+#include <math.h>
 
 #include <SDL/SDL.h>
 
@@ -65,9 +66,9 @@ void Interpolation::interpolate()
 				s_translates[obj->ident()][2] = obj->translate()[2];
 				break;
 			case ANIM_ROTATE:
-				s_rotates[obj->ident()][0] = obj->rotate()[0];
-				s_rotates[obj->ident()][1] = obj->rotate()[1];
-				s_rotates[obj->ident()][2] = obj->rotate()[2];
+				s_rotates[obj->ident()][0] = fmod(obj->rotate()[0], 360);
+				s_rotates[obj->ident()][1] = fmod(obj->rotate()[1], 360);
+				s_rotates[obj->ident()][2] = fmod(obj->rotate()[2], 360);
 				break;
 			case ANIM_SCALE:
 				s_scales[obj->ident()][0] = obj->scale()[0];
