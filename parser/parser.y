@@ -167,7 +167,7 @@ INTERPOLATE_COMMAND:         MV { $$ = $1; }
                              ;
 
 DEFAULT_CAM:                 TSET_DEFAULT_CAMERA TIDENTIFIER TEOS {
-                                                                    $$ = new GeneralCommand("Scene::instance().set_default_camera(\"" + *$2 + "\");");
+                                                                    $$ = new GeneralCommand("Scene::instance().set_default_camera(\"" + Object::makeName(*$2) + "\");");
                                                                     std::string *varType = getVar(*$2);
                                                                     if (varType == NULL) {
                                                                         std::string msg = "Var \"" + *$2 + "\" has not been declarated";
