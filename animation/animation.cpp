@@ -98,7 +98,14 @@ void Interpolation::interpolate()
 									   z + s_translates[obj->ident()][2]);
 					break;
 				case ANIM_ROTATE:
-					obj->set_rotate(x, y, z);
+					x = ((action.x - s_rotates[obj->ident()][0]) * (now - start)) / (stop - start);
+					y = ((action.y - s_rotates[obj->ident()][1]) * (now - start)) / (stop - start);
+					z = ((action.z - s_rotates[obj->ident()][2]) * (now - start)) / (stop - start);
+
+
+					obj->set_rotate(x + s_rotates[obj->ident()][0],
+								   y + s_rotates[obj->ident()][1],
+								   z + s_rotates[obj->ident()][2]);
 					break;
 				case ANIM_SCALE:
 					x = ((action.x - s_scales[obj->ident()][0]) * (now - start)) / (stop - start);

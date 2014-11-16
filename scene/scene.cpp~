@@ -120,9 +120,7 @@ void SceneObject::render()
 	glPushMatrix();
 
 	glTranslatef(_translate[0], _translate[1], _translate[2]);
-	glRotatef(_rotate[0], 1, 0, 0);
-	glRotatef(_rotate[1], 0, 1, 0);
-	glRotatef(_rotate[2], 0, 0, 1);
+	glRotatef(_angle, _rotate[0], _rotate[1], _rotate[2]);
 	glScalef(_scale[0], _scale[1], _scale[2]);
 
 	glDrawElements(GL_TRIANGLES, _idx_size, GL_UNSIGNED_INT, 0);
