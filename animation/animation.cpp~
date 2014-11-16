@@ -92,6 +92,7 @@ void Interpolation::interpolate()
 					y = ((action.y - s_translates[obj->ident()][1]) * (now - start)) / (stop - start);
 					z = ((action.z - s_translates[obj->ident()][2]) * (now - start)) / (stop - start);
 
+					//std::cout << "set translate " << x + s_translates[obj->ident()][0] << " " << y + s_translates[obj->ident()][1] << " " << z + s_translates[obj->ident()][2] << " " << std::endl;
 
 					obj->set_translate(x + s_translates[obj->ident()][0],
 									   y + s_translates[obj->ident()][1],
@@ -105,6 +106,7 @@ void Interpolation::interpolate()
 					y = ((action.y - s_scales[obj->ident()][1]) * (now - start)) / (stop - start);
 					z = ((action.z - s_scales[obj->ident()][2]) * (now - start)) / (stop - start);
 
+					std::cout << "set scale " << x + s_scales[obj->ident()][0] << " " << y + s_scales[obj->ident()][1] << " " << z + s_scales[obj->ident()][2] << " " << std::endl;
 
 					obj->set_scale(x + s_scales[obj->ident()][0],
 								   y + s_scales[obj->ident()][1],

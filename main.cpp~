@@ -32,12 +32,16 @@ int main(int argc, char** argv)
 	glewInit();
 	setup_gl();
 	glutInit(&argc, argv);
+//*
+	// load obj/primitive
+	SceneObject obj = SceneObject("obj");
+	obj.load_obj("cube.obj");
+	obj.build_vbo();
 
-//	Cameras
+	Scene::instance().add_object(obj.ident(), &obj);
 
 	main_camera = new Camera(90, WIDTH, HEIGHT);
 	Scene::instance().add_camera("main", main_camera);
-	main_camera->set_position(0.0f, 0.0f, -5.0f);
 
 	other_camera = new Camera(90, WIDTH, HEIGHT);
 	Scene::instance().add_camera("other", other_camera);
@@ -45,35 +49,56 @@ int main(int argc, char** argv)
 	Scene::instance().set_default_camera("main");
 	Scene::instance().default_camera()->reset_view(WIDTH, HEIGHT);
 
-//	SceneObject creation
+	Animation* gorda = new Animation("gorda");
 
-	SceneObject* cube = new SceneObject("cube");
-	cube->load_obj("cube.obj");
-	cube->build_vbo();
+	Interpolation* i = gorda->add_interp();
+	i->add_action(ANIM_SCALE, "obj", 5.0, 5.0, 5.0);
+	i->set_time(2.0f);
+
+	Interpolation* i2 = gorda->add_interp();
+	i2->add_action(ANIM_SCALE, "obj", 1.0, 1.0, 1.0);
+	i2->set_time(3.0f);
 
 
-//	Add object to scene
-	Scene::instance().add_object(cube->ident(), cube);
+	gorda->dump();
 
-
-//	Cube animation
-	Animation* cube_anim = new Animation("cube translate");
-	Interpolation* cube_interp = cube_anim->add_interp();
-
-	cube_interp->add_action(ANIM_TRANSLATE, "cube", 0.0, 5.0, 0.0);
-	cube_interp->add_action(ANIM_SCALE, "cube", 0.1, 0.1, 0.1);
-	cube_interp->set_time(5.0f);
-
-	Animation* cube_anim_back = new Animation("cube translate back");
-	Interpolation* cube_interp_back = cube_anim_back->add_interp();
-
-	cube_interp_back->add_action(ANIM_TRANSLATE, "cube", 0.0, 0.0, 0.0);
-	cube_interp_back->add_action(ANIM_SCALE, "cube", 1.0, 1.0, 1.0);
-	cube_interp_back->set_time(5.0f);
-
-	Timeline::instance().add_animation(cube_anim, 2.0f);
-	Timeline::instance().add_animation(cube_anim_back, 7.0f);
+	Timeline::instance().add_animation(gorda, 5.0);
 	Timeline::instance().start();
+/**/
+/*
+	SceneObject *object_cube = new SceneObject("object_cube");
+	object_cube->load_obj("cubo.obj");
+	object_cube->build_vbo();
+	Scene::instance().add_object(object_cube->ident(), object_cube);
+
+	object_cubo->set_global_translate(0, 0, 3);
+	Camera *object_a = new Camera();
+	Scene::instance().add_camera("object_a", object_a);
+	object_cubo->set_global_translate(0, 0, 3);
+	Animation *object_trans = new Animation("object_trans");
+
+	Interpolation *interpolation_0 = object_trans->add_interp();
+	interpolation_0->set_time(5);
+	interpolation_0->add_action(ANIM_TRANSLATE, "object_cubo", 0, 0, 5);
+
+	Animation *object_rot = new Animation("object_rot");
+
+	Interpolation *interpolation_1 = object_rot->add_interp();
+	interpolation_1->set_time(5);
+	interpolation_1->add_action(ANIM_ROTATE, "object_cubo", 45, 45, 45);
+	interpolation_1->add_action(ANIM_SCALE, "object_cubo", 3, 3, 3);
+
+	Animation *object_trans2 = new Animation("object_trans2");
+
+	Interpolation *interpolation_2 = object_trans2->add_interp();
+	interpolation_2->set_time(5);
+	interpolation_2->add_action(ANIM_TRANSLATE, "object_cubo", 0, 5, 0);
+
+	Timeline::instance().add_animation(object_trans, 2);
+	Timeline::instance().add_animation(object_rot, 7);
+	Timeline::instance().add_animation(object_trans2, 212);
+	Scene::instance().set_default_camera("a");
+	Timeline::instance().start();*/
 
 	input_ctr = InputController();
 	while (1)
