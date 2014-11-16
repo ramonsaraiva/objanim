@@ -9,6 +9,8 @@ string Program::generate()
 {
     CommandsIterator it = commands->begin();
     string result = "/*\n* ObjAnim - Code Generator\n*/\n\n";
+
+    result += "void setup_scene()\n{\n";
     for (; it != commands->end(); ++it) {
         Command *cmd = *it;
         switch (cmd->getType()) {
@@ -27,11 +29,9 @@ string Program::generate()
             case GeneralCommand::TYPE:
                 result += ((GeneralCommand*)cmd)->generate();
                 break;
-            default:
-                result += "/*error*/\n";
         }
 
     }
 
-    return result;
+    return result + "\n}\n";
 }

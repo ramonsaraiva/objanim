@@ -10,6 +10,21 @@ Camera::Camera(string n, CamArgs *ca)
 string Camera::generate()
 {
     string result = "Camera *" + getName() + " = new Camera();\n";
+
+    for (int i=0; i < (int)args->size(); i++) {
+        CamArg *arg = args->at(i);
+        result += getName() + "->set_" + arg->getName() + "(";
+        vector<string> values = arg->getArgs();
+        int size = (int)values.size();
+        for (int j=0; j < size; j++) {
+            result += values.at(j);
+            if (j+1 < size) {
+                result += ", ";
+            }
+        }
+        result += ");\n";
+    }
+
     result += "Scene::instance().add_camera(\"" + getName() + "\", " +  getName() + ");\n";
     return result;
 }
@@ -29,6 +44,11 @@ void CamArg::addArg(string arg)
 vector<string> CamArg::getArgs()
 {
     return args;
+}
+
+string CamArg::getName()
+{
+    return name;
 }
 
 

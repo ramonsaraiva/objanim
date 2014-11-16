@@ -48,8 +48,8 @@ int linenum = 1;
 "if" return TIF;
 "camera" SAVE_TOKEN; return TCAMERA;
 (translate|global_translate|rotate|scale) SAVE_TOKEN; return TMV_OP;
-(position|direction|rotation) SAVE_TOKEN; return TCAM_3ARGS;
-(ratio|depth) SAVE_TOKEN; return TCAM_1ARG;
+(position|direction) SAVE_TOKEN; return TCAM_3ARGS;
+(depth) SAVE_TOKEN; return TCAM_1ARG;
 
 [a-zA-Z][a-zA-Z\_0-9]* SAVE_TOKEN; return TIDENTIFIER;
 \"[a-zA-z\_\\:\.]+\" SAVE_TOKEN; return TCHAR;
