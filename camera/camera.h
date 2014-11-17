@@ -15,7 +15,7 @@ class Camera
 		void move(int direction);
 		void strafe(int direction);
 		void set_speed(float speed);
-		void reset_view(int width, int height);
+		void reset_view(void);
 		void refresh_lookat(void);
 
 	private:
@@ -24,6 +24,8 @@ class Camera
 		float _position[3];
 		float _direction[3];
 		float _depth;
+		int _width;
+		int _height;
 
 		void refresh_direction();
 };

@@ -1,38 +1,95 @@
-load_model "resources/head.OBJ" cubo;
+load_model "resources/cube.obj" cube_start;
+load_model "resources/cube.obj" cube_fall_1;
+load_model "resources/cube.obj" cube_fall_2;
+load_model "resources/cube.obj" cube_fall_3;
+load_model "resources/cube.obj" cube_fall_4;
+load_model "resources/cube.obj" cube_fall_5;
+load_model "resources/cube.obj" cube_fall_6;
+load_model "resources/cube.obj" cube_fall_7;
+load_model "resources/cube.obj" cube_fall_8;
+load_model "resources/cube.obj" cube_fall_9;
+load_model "resources/cube.obj" cube_fall_10;
+load_model "resources/cube.obj" cube_fall_11;
+load_model "resources/cube.obj" cube_fall_12;
+load_model "resources/cube.obj" cube_fall_13;
+load_model "resources/cube.obj" cube_fall_14;
+load_model "resources/cube.obj" cube_fall_15;
 
-camera a {
-    position: 0 0 -5;
-    direction: 0 0 1;
-    depth: 100;
+camera cam
+{
+	position: 20 0 -3;
+	direction: 5 0 1;
+	depth: 1000;
 }
 
-camera b {
-	position: 0 0 -20;
-	direction: 0 0.2 1;
-	depth: 200;
+animation prepare
+{
+	translate cube_fall_1 14 10 0;
+	translate cube_fall_2 13 14 0;
+	translate cube_fall_3 12 18 0;
+	translate cube_fall_4 11 22 0;
+	translate cube_fall_5 10 26 0;
+	translate cube_fall_6 9 30 0;
+	translate cube_fall_7 8 34 0;
+	translate cube_fall_8 7 38 0;
+	translate cube_fall_9 6 42 0;
+	translate cube_fall_10 5 46 0;
+	translate cube_fall_11 4 50 0;
+	translate cube_fall_12 3 54 0;
+	translate cube_fall_13 2 58 0;
+	translate cube_fall_14 1 62 0;
+	translate cube_fall_15 0 66 0;
 }
 
-animation trans{
-	scale cubo 5 5 5;
-    interpolate 5 {
-        translate cubo 0 10 5;
-	rotate cubo 0 9000 0;
-    }
+animation slide
+{
+	interpolate 4
+	{
+		translate cube_start 15 0 0;
+		rotate cube_start 1440 0 0;
+	}
 }
 
-animation rot{
-    interpolate 5 {
-        rotate cubo 0 10 0;
-        scale cubo 3 3 3;
-	translate cubo 0 0 0;
-    }
+animation drop_first
+{
+	interpolate 4
+	{
+		translate cube_fall_1 14 0 0;
+		translate cube_fall_2 13 0 0;
+		translate cube_fall_3 12 0 0;
+		translate cube_fall_4 11 0 0;
+		translate cube_fall_5 10 0 0;
+		translate cube_fall_6 9 0 0;
+		translate cube_fall_7 8 0 0;
+		translate cube_fall_8 7 0 0;
+		translate cube_fall_9 6 0 0;
+		translate cube_fall_10 5 0 0;
+		translate cube_fall_11 4 0 0;
+		translate cube_fall_12 3 0 0;
+		translate cube_fall_13 2 0 0;
+		translate cube_fall_14 1 0 0;
+		translate cube_fall_15 0 0 0;
+
+		rotate cube_fall_1 1440 0 0;
+		rotate cube_fall_2 1440 0 0;
+		rotate cube_fall_3 1440 0 0;
+		rotate cube_fall_4 1440 0 0;
+		rotate cube_fall_5 1440 0 0;
+		rotate cube_fall_6 1440 0 0;
+		rotate cube_fall_7 1440 0 0;
+		rotate cube_fall_8 1440 0 0;
+		rotate cube_fall_9 1440 0 0;
+		rotate cube_fall_10 1440 0 0;
+		rotate cube_fall_11 1440 0 0;
+		rotate cube_fall_12 1440 0 0;
+		rotate cube_fall_13 1440 0 0;
+		rotate cube_fall_14 1440 0 0;
+		rotate cube_fall_15 1440 0 0;
+	}
 }
 
+add_to_timeline prepare 0;
+add_to_timeline slide 1;
+add_to_timeline drop_first 1;
 
-add_to_timeline trans 2;
-
-add_to_timeline rot 7;
-
-set_default_camera a;
-
-add_to_timeline b 4;
+set_default_camera cam;

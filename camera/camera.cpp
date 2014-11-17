@@ -20,6 +20,8 @@ Camera::Camera(float angle, int width, int height)
 
 	_speed = 0.05;
 	_angle = angle;
+	_width = width;
+	_height = height;
 
 	refresh_direction();
 }
@@ -43,14 +45,14 @@ void Camera::set_direction(float dx, float dy, float dz)
 	_direction[2] = dz;
 }
 
-void Camera::reset_view(int width, int height)
+void Camera::reset_view()
 {
-	glViewport(0, 0, width, height);
+	glViewport(0, 0, _width, _height);
 	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	gluPerspective(45.0, width/(double)height, 0.2, _depth);
+	gluPerspective(45.0, _width/(double)_height, 0.2, _depth);
 
 	refresh_lookat();
 }
