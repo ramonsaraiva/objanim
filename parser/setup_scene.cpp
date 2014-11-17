@@ -9,187 +9,187 @@
 void setup_scene()
 {
 SceneObject *object_cube_start = new SceneObject("object_cube_start");
-object_cube_start->load_obj("resources/cube/cube.obj");
+object_cube_start->load_obj("primitives/cube/cube.obj");
 object_cube_start->build_vbo();
 Scene::instance().add_object(object_cube_start->ident(), object_cube_start);
 
 SceneObject *object_cube_drop_1 = new SceneObject("object_cube_drop_1");
-object_cube_drop_1->load_obj("resources/cube/cube.obj");
+object_cube_drop_1->load_obj("primitives/cube/cube.obj");
 object_cube_drop_1->build_vbo();
 Scene::instance().add_object(object_cube_drop_1->ident(), object_cube_drop_1);
 
 SceneObject *object_cube_drop_2 = new SceneObject("object_cube_drop_2");
-object_cube_drop_2->load_obj("resources/cube/cube.obj");
+object_cube_drop_2->load_obj("primitives/cube/cube.obj");
 object_cube_drop_2->build_vbo();
 Scene::instance().add_object(object_cube_drop_2->ident(), object_cube_drop_2);
 
 SceneObject *object_cube_drop_3 = new SceneObject("object_cube_drop_3");
-object_cube_drop_3->load_obj("resources/cube/cube.obj");
+object_cube_drop_3->load_obj("primitives/cube/cube.obj");
 object_cube_drop_3->build_vbo();
 Scene::instance().add_object(object_cube_drop_3->ident(), object_cube_drop_3);
 
 SceneObject *object_cube_drop_4 = new SceneObject("object_cube_drop_4");
-object_cube_drop_4->load_obj("resources/cube/cube.obj");
+object_cube_drop_4->load_obj("primitives/cube/cube.obj");
 object_cube_drop_4->build_vbo();
 Scene::instance().add_object(object_cube_drop_4->ident(), object_cube_drop_4);
 
 SceneObject *object_cube_drop_5 = new SceneObject("object_cube_drop_5");
-object_cube_drop_5->load_obj("resources/cube/cube.obj");
+object_cube_drop_5->load_obj("primitives/cube/cube.obj");
 object_cube_drop_5->build_vbo();
 Scene::instance().add_object(object_cube_drop_5->ident(), object_cube_drop_5);
 
 SceneObject *object_cube_drop_6 = new SceneObject("object_cube_drop_6");
-object_cube_drop_6->load_obj("resources/cube/cube.obj");
+object_cube_drop_6->load_obj("primitives/cube/cube.obj");
 object_cube_drop_6->build_vbo();
 Scene::instance().add_object(object_cube_drop_6->ident(), object_cube_drop_6);
 
 SceneObject *object_cube_drop_7 = new SceneObject("object_cube_drop_7");
-object_cube_drop_7->load_obj("resources/cube/cube.obj");
+object_cube_drop_7->load_obj("primitives/cube/cube.obj");
 object_cube_drop_7->build_vbo();
 Scene::instance().add_object(object_cube_drop_7->ident(), object_cube_drop_7);
 
 SceneObject *object_cube_drop_8 = new SceneObject("object_cube_drop_8");
-object_cube_drop_8->load_obj("resources/cube/cube.obj");
+object_cube_drop_8->load_obj("primitives/cube/cube.obj");
 object_cube_drop_8->build_vbo();
 Scene::instance().add_object(object_cube_drop_8->ident(), object_cube_drop_8);
 
 SceneObject *object_cube_drop_9 = new SceneObject("object_cube_drop_9");
-object_cube_drop_9->load_obj("resources/cube/cube.obj");
+object_cube_drop_9->load_obj("primitives/cube/cube.obj");
 object_cube_drop_9->build_vbo();
 Scene::instance().add_object(object_cube_drop_9->ident(), object_cube_drop_9);
 
 SceneObject *object_cube_drop_10 = new SceneObject("object_cube_drop_10");
-object_cube_drop_10->load_obj("resources/cube/cube.obj");
+object_cube_drop_10->load_obj("primitives/cube/cube.obj");
 object_cube_drop_10->build_vbo();
 Scene::instance().add_object(object_cube_drop_10->ident(), object_cube_drop_10);
 
 SceneObject *object_cube_drop_11 = new SceneObject("object_cube_drop_11");
-object_cube_drop_11->load_obj("resources/cube/cube.obj");
+object_cube_drop_11->load_obj("primitives/cube/cube.obj");
 object_cube_drop_11->build_vbo();
 Scene::instance().add_object(object_cube_drop_11->ident(), object_cube_drop_11);
 
 SceneObject *object_cube_drop_12 = new SceneObject("object_cube_drop_12");
-object_cube_drop_12->load_obj("resources/cube/cube.obj");
+object_cube_drop_12->load_obj("primitives/cube/cube.obj");
 object_cube_drop_12->build_vbo();
 Scene::instance().add_object(object_cube_drop_12->ident(), object_cube_drop_12);
 
 SceneObject *object_cube_drop_13 = new SceneObject("object_cube_drop_13");
-object_cube_drop_13->load_obj("resources/cube/cube.obj");
+object_cube_drop_13->load_obj("primitives/cube/cube.obj");
 object_cube_drop_13->build_vbo();
 Scene::instance().add_object(object_cube_drop_13->ident(), object_cube_drop_13);
 
 SceneObject *object_cube_drop_14 = new SceneObject("object_cube_drop_14");
-object_cube_drop_14->load_obj("resources/cube/cube.obj");
+object_cube_drop_14->load_obj("primitives/cube/cube.obj");
 object_cube_drop_14->build_vbo();
 Scene::instance().add_object(object_cube_drop_14->ident(), object_cube_drop_14);
 
 SceneObject *object_cube_drop_15 = new SceneObject("object_cube_drop_15");
-object_cube_drop_15->load_obj("resources/cube/cube.obj");
+object_cube_drop_15->load_obj("primitives/cube/cube.obj");
 object_cube_drop_15->build_vbo();
 Scene::instance().add_object(object_cube_drop_15->ident(), object_cube_drop_15);
 
 SceneObject *object_cube_drop_16 = new SceneObject("object_cube_drop_16");
-object_cube_drop_16->load_obj("resources/cube/cube.obj");
+object_cube_drop_16->load_obj("primitives/cube/cube.obj");
 object_cube_drop_16->build_vbo();
 Scene::instance().add_object(object_cube_drop_16->ident(), object_cube_drop_16);
 
 SceneObject *object_cube_drop_17 = new SceneObject("object_cube_drop_17");
-object_cube_drop_17->load_obj("resources/cube/cube.obj");
+object_cube_drop_17->load_obj("primitives/cube/cube.obj");
 object_cube_drop_17->build_vbo();
 Scene::instance().add_object(object_cube_drop_17->ident(), object_cube_drop_17);
 
 SceneObject *object_cube_drop_18 = new SceneObject("object_cube_drop_18");
-object_cube_drop_18->load_obj("resources/cube/cube.obj");
+object_cube_drop_18->load_obj("primitives/cube/cube.obj");
 object_cube_drop_18->build_vbo();
 Scene::instance().add_object(object_cube_drop_18->ident(), object_cube_drop_18);
 
 SceneObject *object_cube_drop_19 = new SceneObject("object_cube_drop_19");
-object_cube_drop_19->load_obj("resources/cube/cube.obj");
+object_cube_drop_19->load_obj("primitives/cube/cube.obj");
 object_cube_drop_19->build_vbo();
 Scene::instance().add_object(object_cube_drop_19->ident(), object_cube_drop_19);
 
 SceneObject *object_cube_drop_20 = new SceneObject("object_cube_drop_20");
-object_cube_drop_20->load_obj("resources/cube/cube.obj");
+object_cube_drop_20->load_obj("primitives/cube/cube.obj");
 object_cube_drop_20->build_vbo();
 Scene::instance().add_object(object_cube_drop_20->ident(), object_cube_drop_20);
 
 SceneObject *object_cube_drop_21 = new SceneObject("object_cube_drop_21");
-object_cube_drop_21->load_obj("resources/cube/cube.obj");
+object_cube_drop_21->load_obj("primitives/cube/cube.obj");
 object_cube_drop_21->build_vbo();
 Scene::instance().add_object(object_cube_drop_21->ident(), object_cube_drop_21);
 
 SceneObject *object_cube_drop_22 = new SceneObject("object_cube_drop_22");
-object_cube_drop_22->load_obj("resources/cube/cube.obj");
+object_cube_drop_22->load_obj("primitives/cube/cube.obj");
 object_cube_drop_22->build_vbo();
 Scene::instance().add_object(object_cube_drop_22->ident(), object_cube_drop_22);
 
 SceneObject *object_cube_drop_23 = new SceneObject("object_cube_drop_23");
-object_cube_drop_23->load_obj("resources/cube/cube.obj");
+object_cube_drop_23->load_obj("primitives/cube/cube.obj");
 object_cube_drop_23->build_vbo();
 Scene::instance().add_object(object_cube_drop_23->ident(), object_cube_drop_23);
 
 SceneObject *object_cube_drop_24 = new SceneObject("object_cube_drop_24");
-object_cube_drop_24->load_obj("resources/cube/cube.obj");
+object_cube_drop_24->load_obj("primitives/cube/cube.obj");
 object_cube_drop_24->build_vbo();
 Scene::instance().add_object(object_cube_drop_24->ident(), object_cube_drop_24);
 
 SceneObject *object_cube_drop_25 = new SceneObject("object_cube_drop_25");
-object_cube_drop_25->load_obj("resources/cube/cube.obj");
+object_cube_drop_25->load_obj("primitives/cube/cube.obj");
 object_cube_drop_25->build_vbo();
 Scene::instance().add_object(object_cube_drop_25->ident(), object_cube_drop_25);
 
 SceneObject *object_cube_drop_26 = new SceneObject("object_cube_drop_26");
-object_cube_drop_26->load_obj("resources/cube/cube.obj");
+object_cube_drop_26->load_obj("primitives/cube/cube.obj");
 object_cube_drop_26->build_vbo();
 Scene::instance().add_object(object_cube_drop_26->ident(), object_cube_drop_26);
 
 SceneObject *object_cube_drop_27 = new SceneObject("object_cube_drop_27");
-object_cube_drop_27->load_obj("resources/cube/cube.obj");
+object_cube_drop_27->load_obj("primitives/cube/cube.obj");
 object_cube_drop_27->build_vbo();
 Scene::instance().add_object(object_cube_drop_27->ident(), object_cube_drop_27);
 
 SceneObject *object_cube_drop_28 = new SceneObject("object_cube_drop_28");
-object_cube_drop_28->load_obj("resources/cube/cube.obj");
+object_cube_drop_28->load_obj("primitives/cube/cube.obj");
 object_cube_drop_28->build_vbo();
 Scene::instance().add_object(object_cube_drop_28->ident(), object_cube_drop_28);
 
 SceneObject *object_cube_drop_29 = new SceneObject("object_cube_drop_29");
-object_cube_drop_29->load_obj("resources/cube/cube.obj");
+object_cube_drop_29->load_obj("primitives/cube/cube.obj");
 object_cube_drop_29->build_vbo();
 Scene::instance().add_object(object_cube_drop_29->ident(), object_cube_drop_29);
 
 SceneObject *object_cube_drop_30 = new SceneObject("object_cube_drop_30");
-object_cube_drop_30->load_obj("resources/cube/cube.obj");
+object_cube_drop_30->load_obj("primitives/cube/cube.obj");
 object_cube_drop_30->build_vbo();
 Scene::instance().add_object(object_cube_drop_30->ident(), object_cube_drop_30);
 
 SceneObject *object_cube_drop_31 = new SceneObject("object_cube_drop_31");
-object_cube_drop_31->load_obj("resources/cube/cube.obj");
+object_cube_drop_31->load_obj("primitives/cube/cube.obj");
 object_cube_drop_31->build_vbo();
 Scene::instance().add_object(object_cube_drop_31->ident(), object_cube_drop_31);
 
 SceneObject *object_cube_drop_32 = new SceneObject("object_cube_drop_32");
-object_cube_drop_32->load_obj("resources/cube/cube.obj");
+object_cube_drop_32->load_obj("primitives/cube/cube.obj");
 object_cube_drop_32->build_vbo();
 Scene::instance().add_object(object_cube_drop_32->ident(), object_cube_drop_32);
 
 SceneObject *object_cube_drop_33 = new SceneObject("object_cube_drop_33");
-object_cube_drop_33->load_obj("resources/cube/cube.obj");
+object_cube_drop_33->load_obj("primitives/cube/cube.obj");
 object_cube_drop_33->build_vbo();
 Scene::instance().add_object(object_cube_drop_33->ident(), object_cube_drop_33);
 
 SceneObject *object_cube_drop_34 = new SceneObject("object_cube_drop_34");
-object_cube_drop_34->load_obj("resources/cube/cube.obj");
+object_cube_drop_34->load_obj("primitives/cube/cube.obj");
 object_cube_drop_34->build_vbo();
 Scene::instance().add_object(object_cube_drop_34->ident(), object_cube_drop_34);
 
 SceneObject *object_cube_drop_35 = new SceneObject("object_cube_drop_35");
-object_cube_drop_35->load_obj("resources/cube/cube.obj");
+object_cube_drop_35->load_obj("primitives/cube/cube.obj");
 object_cube_drop_35->build_vbo();
 Scene::instance().add_object(object_cube_drop_35->ident(), object_cube_drop_35);
 
 SceneObject *object_floor = new SceneObject("object_floor");
-object_floor->load_obj("resources/cube/cube.obj");
+object_floor->load_obj("primitives/cube/cube.obj");
 object_floor->build_vbo();
 Scene::instance().add_object(object_floor->ident(), object_floor);
 
