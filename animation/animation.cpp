@@ -117,6 +117,23 @@ void Interpolation::interpolate()
 
 		now = SDL_GetTicks();
 	}
+	for (int i = 0; i < _actions.size(); i++)
+	{
+		action_t& action = _actions[i];
+		SceneObject* obj = Scene::instance().objects()[action.obj];
+		switch (action.type)
+		{
+			case ANIM_TRANSLATE:
+				obj->set_translate(action.x, action.y, action.z);
+				break;
+			case ANIM_ROTATE:
+				obj->set_rotate(action.x, action.y, action.z);
+				break;
+			case ANIM_SCALE:
+				obj->set_scale(action.x, action.y, action.z);
+				break;
+		}
+	}
 }
 
 std::vector<action_t>& Interpolation::actions()
