@@ -77,8 +77,6 @@ void Interpolation::interpolate()
 		}
 	}
 
-	std::cout << "initial translate of cube " << s_translates["obj"][0] << " " << s_translates["obj"][1] << " " << s_translates["obj"][2] << std::endl; 
-
 	while (now < stop)
 	{
 		for (int i = 0; i < _actions.size(); i++)
