@@ -1,2 +1,3 @@
 #!/bin/bash
-cat input | ./parser
+cat input | ./parser > setup_scene.cpp
+make

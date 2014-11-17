@@ -12,6 +12,9 @@
 #include "animation/animation.h"
 #include "input/input.h"
 
+#include "parser/setup_scene.cpp"
+
+
 #define WIDTH 900
 #define HEIGHT 700
 
@@ -33,47 +36,8 @@ int main(int argc, char** argv)
 	setup_gl();
 	glutInit(&argc, argv);
 
-//	Cameras
+	setup_scene();
 
-	main_camera = new Camera(90, WIDTH, HEIGHT);
-	Scene::instance().add_camera("main", main_camera);
-	main_camera->set_position(0.0f, 0.0f, -5.0f);
-
-	other_camera = new Camera(90, WIDTH, HEIGHT);
-	Scene::instance().add_camera("other", other_camera);
-	other_camera->set_position(0.0f, 0.0f, -10.0f);
-
-	Scene::instance().set_default_camera("main");
-	Scene::instance().default_camera()->reset_view(WIDTH, HEIGHT);
-
-//	SceneObject creation
-
-	SceneObject* cube = new SceneObject("cube");
-	cube->load_obj("cube.obj");
-	cube->build_vbo();
-
-//	Add object to scene
-	Scene::instance().add_object(cube->ident(), cube);
-
-//	Cube animation
-	Animation* cube_anim = new Animation("cube translate");
-	Interpolation* cube_interp = cube_anim->add_interp();
-
-	cube_interp->add_action(ANIM_TRANSLATE, "cube", 0.0, 5.0, 0.0);
-	cube_interp->add_action(ANIM_ROTATE, "cube", 0.0, 900.1, 0.1);
-	cube_interp->set_time(5.0f);
-
-	Animation* cube_anim_back = new Animation("cube translate back");
-	Interpolation* cube_interp_back = cube_anim_back->add_interp();
-
-	cube_interp_back->add_action(ANIM_TRANSLATE, "cube", 0.0, 0.0, 0.0);
-	cube_interp_back->add_action(ANIM_SCALE, "cube", 1.0, 1.0, 1.0);
-	cube_interp_back->add_action(ANIM_ROTATE, "cube", 0.0, 0.0, 0.0);
-	cube_interp_back->set_time(5.0f);
-
-	Timeline::instance().add_camera(other_camera, 5.0f);
-	Timeline::instance().add_animation(cube_anim, 10.0f);
-	Timeline::instance().add_animation(cube_anim_back, 15.0f);
 	Timeline::instance().start();
 
 	input_ctr = InputController();
