@@ -1,0 +1,87 @@
+load_model "primitives/cube/cube.obj" o_left;
+load_model "primitives/cube/cube.obj" o_right;
+load_model "primitives/cube/cube.obj" o_top;
+load_model "primitives/cube/cube.obj" o_bottom;
+
+load_model "primitives/cube/cube.obj" b_left;
+load_model "primitives/cube/cube.obj" b_top;
+load_model "primitives/cube/cube.obj" b_middle;
+load_model "primitives/cube/cube.obj" b_bottom;
+load_model "primitives/cube/cube.obj" b_right_top;
+load_model "primitives/cube/cube.obj" b_right_bottom;
+
+camera cam
+{
+	position: 3 0 -10;
+	direction: -1 0 1;
+	depth: 1000;
+}
+
+animation prepare_o
+{
+	scale o_left 0.5 4 0.5;
+	scale o_right 0.5 4 0.5;
+	scale o_top 2 0.5 0.5;
+	scale o_bottom 2 0.5 0.5;
+
+	translate o_left 3 10 0;
+	translate o_right 1 18 0; 
+	translate o_top 18 4 0;
+	translate o_bottom 10 -0.1 0;
+}
+
+animation prepare_b
+{
+	scale b_left 0.5 4 0.5;
+	scale b_top 2 0.5 0.5;
+	scale b_middle 1.5 0.5 0.5;
+	scale b_bottom 2 0.5 0.5;
+	scale b_right_top 0.4 1.6 1.0;
+	scale b_right_bottom 0.4 1.6 1.0;
+
+	translate b_left 0 2 -11;
+	translate b_top -1 4 20;
+	translate b_middle -0.5 2 20;
+	translate b_bottom -1 -0.1 20;
+	translate b_right_top -1.9 3 -11;
+	translate b_right_bottom -1.9 1.1 -11;
+}
+
+animation build_o
+{
+	interpolate 2
+	{
+		translate o_left 3 2 0;
+		translate o_right 1 2 0; 
+		translate o_top 2 4 0;
+		translate o_bottom 2 -0.1 0;
+	}
+}
+
+animation build_b
+{
+	interpolate 3
+	{
+		translate b_left 0 2 0;
+		translate b_top -1 4 0;
+		translate b_middle -1 2 0;
+		translate b_bottom -1 -0.1 0;
+		translate b_right_top -1.9 3 0;
+		translate b_right_bottom -1.9 0.9 0;
+
+
+		rotate b_left 1800 0 0;
+		rotate b_top 0 1800 0;
+		rotate b_middle 0 1800 0;
+		rotate b_bottom 0 1800 0;
+		rotate b_right_top 1800 0 0;
+		rotate b_right_bottom -1800 0 0;
+	}
+}
+
+add_to_timeline prepare_o 0;
+add_to_timeline prepare_b 0;
+add_to_timeline build_o 1;
+add_to_timeline build_b 3;
+
+set_default_camera cam;
