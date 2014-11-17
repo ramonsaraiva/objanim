@@ -1,4 +1,4 @@
-load_primitive cube cubo;
+load_model "resources/head.OBJ" cubo;
 
 camera a {
     position: 0 0 -5;

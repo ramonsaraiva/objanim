@@ -1,2 +1,2 @@
 #!/bin/bash
-cat input | ./parser > setup_scene.cpp
+cat input | ./parser

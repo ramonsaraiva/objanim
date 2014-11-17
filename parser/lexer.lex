@@ -52,7 +52,7 @@ int linenum = 1;
 (depth) SAVE_TOKEN; return TCAM_1ARG;
 
 [a-zA-Z][a-zA-Z\_0-9]* SAVE_TOKEN; return TIDENTIFIER;
-\"[a-zA-z\_\\:\.]+\" SAVE_TOKEN; return TCHAR;
+\"(\\.|[^"])*\" SAVE_TOKEN; return TCHAR;
 
 
 

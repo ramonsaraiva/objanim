@@ -22,9 +22,6 @@ using namespace std;
 
 InputController input_ctr;
 
-Camera* main_camera;
-Camera* other_camera;
-
 void* setup_sdl();
 void setup_gl();
 void render();

@@ -9,7 +9,7 @@
 void setup_scene()
 {
 SceneObject *object_cubo = new SceneObject("object_cubo");
-object_cubo->load_obj("cube.obj");
+object_cubo->load_obj("resources/head.OBJ");
 object_cubo->build_vbo();
 Scene::instance().add_object(object_cubo->ident(), object_cubo);
 
