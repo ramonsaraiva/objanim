@@ -1,32 +1,38 @@
-load_primitive cube my_cube;
+load_primitive cube cubo;
 
 camera a {
-    position: 0 0 0;
+    position: 0 0 -5;
     direction: 0 0 1;
     depth: 100;
 }
 
 camera b {
-	position: 0 0 0;
-	direction: 0 0 1;
-	depth: 100;
+	position: 0 0 -20;
+	direction: 0 0.2 1;
+	depth: 200;
 }
 
-animation slide {
+animation trans{
+	scale cubo 5 5 5;
     interpolate 5 {
-        translate my_cube 5 0 0;
-		rotate my_cube 45 45 0;
-		scale my_cube 5 5 5;
+        translate cubo 0 10 5;
+	rotate cubo 0 9000 0;
     }
 }
 
-animation slide_back {
-	interpolate 5 {
-		translate my_cube 0 0 0;
-	}
+animation rot{
+    interpolate 5 {
+        rotate cubo 0 10 0;
+        scale cubo 3 3 3;
+	translate cubo 0 0 0;
+    }
 }
 
-add_to_timeline slide 4;
-add_to_timeline slide_back 9;
+
+add_to_timeline trans 2;
+
+add_to_timeline rot 7;
 
 set_default_camera a;
+
+add_to_timeline b 4;

@@ -77,7 +77,15 @@ string Animation::generateInterpolation(Interpolation *i)
 
 string Animation::generateMove(Move *m)
 {
+	string action;
+	if (m->getName().compare("translate") == 0) {
+		action = "ANIM_TRANSLATE";
+	} else if (m->getName().compare("rotate") == 0) {
+		action = "ANIM_ROTATE";
+	} else if (m->getName().compare("scale") == 0) {
+		action = "ANIM_SCALE";
+	}
     vector<string> points = m->getPoints();
-    string result = getName() + "->add_action(\"" + m->getName() + "\", \"" + m->getObj() + "\", " + points.at(0) + ", " + points.at(1) + ", " + points.at(2) + ");\n\n";
+    string result = getName() + "->add_action(" + action + ", \"" + m->getObj() + "\", " + points.at(0) + ", " + points.at(1) + ", " + points.at(2) + ");\n\n";
     return result;
 }

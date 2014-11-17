@@ -16,7 +16,7 @@ int linenum = 1;
 %%
 [ \t] ;
 \n {linenum++;} ;
-[0-9]+(\.[0-9]+)? SAVE_TOKEN; return TDOUBLE;
+-?[0-9]+(\.[0-9]+)? SAVE_TOKEN; return TDOUBLE;
 (cube|cone|sphere|plane) SAVE_TOKEN; return TPRIMITIVE;
 "=" return TEQUAL;
 ";" return TEOS;
