@@ -43,10 +43,6 @@ void Interpolation::interpolate()
 	int stop = start + (_time * 1000);
 	int now = start;
 
-	std::cout << "Interpolate.." << std::endl;
-	std::cout << "Start time: " << start << std::endl;
-	std::cout << "Stop time: " << stop << std::endl;
-
 	float x, y, z;
 
 	std::map<std::string, std::array<float, 3>> s_translates;
@@ -186,7 +182,7 @@ void Animation::animate()
 					obj->set_translate(action.x, action.y, action.z);
 					break;
 				case ANIM_ROTATE:
-					//obj->set_rotate(action.x, action.y, action.z);
+					obj->set_rotate(action.x, action.y, action.z);
 					break;
 				case ANIM_SCALE:
 					obj->set_scale(action.x, action.y, action.z);
@@ -249,8 +245,6 @@ void Animation::dump()
 	Interpolation interp;
 
 	controller_size = _controller.size();
-	std::cout << std::endl << "Dumping ANIMATION '" << _ident << "'" << std::endl << std::endl;
-	std::cout << "Controller size: " << controller_size << std::endl;
 
 	for (int i = 0; i < controller_size; i++)
 	{
@@ -263,7 +257,6 @@ void Animation::dump()
 			action = _actions.front();
 			_actions.pop();
 			_actions.push(action);
-			std::cout << "Action => " << action.type << " (SceneObject: " << action.obj << ") (Values: " << action.x << ", " << action.y << ", " << action.z << ")" << std::endl;
 
 			continue;
 		}
@@ -273,12 +266,10 @@ void Animation::dump()
 		_interps.push(interp);
 
 		actions_size = interp.actions().size();
-		std::cout << "Interpolation => (Actions: " << actions_size << ") (Time: " << interp.time() << ")" << std::endl;
 
 		for (int j = 0; j < actions_size; j++)
 		{
 			action = interp.actions()[j];
-			std::cout << "..... Action => " << action.type << " (SceneObject: " << action.obj << ") (Values: " << action.x << ", " << action.y << ", " << action.z << ")" << std::endl;
 		}
 	}
 }
@@ -344,7 +335,6 @@ void Timeline::update()
 			{
 				Animation* anim = _animations[_times[i]][j];
 
-				std::cout << "Running animation => " << anim->ident() << std::endl;
 				std::thread anim_thr(Animation::animate_thread, anim);
 				anim_thr.detach();
 			}
@@ -354,7 +344,6 @@ void Timeline::update()
 		if (it_c != _cameras.end())
 		{
 //			key is a camera
-			std::cout << "Changing camera..." << std::endl;
 
 			Scene::instance().set_default_camera(_cameras[_times[i]]);
 		}

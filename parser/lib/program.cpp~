@@ -1,0 +1,39 @@
+#include "program.h"
+
+Program::Program(Commands *cmds)
+{
+    commands = cmds;
+}
+
+string Program::generate()
+{
+    CommandsIterator it = commands->begin();
+    string result = "/*\n* ObjAnim - Code Generator\n*/\n\n";
+
+    result += "#include \"camera/camera.h\"\n#include \"scene/scene.h\"\n#include \"animation/animation.h\"\n\n";
+
+    result += "void setup_scene()\n{\n";
+    for (; it != commands->end(); ++it) {
+        Command *cmd = *it;
+        switch (cmd->getType()) {
+            case Animation::TYPE:
+                result += "\t" + ((Animation*)cmd)->generate();
+                break;
+            case Move::TYPE:
+                result += "\t" + ((Move*)cmd)->generate();
+                break;
+            case Camera::TYPE:
+                result += "\t" + ((Camera*)cmd)->generate();
+                break;
+            case Model::TYPE:
+                result += "\t" + ((Model*)cmd)->generate();
+                break;
+            case GeneralCommand::TYPE:
+                result += "\t" + ((GeneralCommand*)cmd)->generate();
+                break;
+        }
+
+    }
+
+    return result + "\n}\n";
+}

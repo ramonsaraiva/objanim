@@ -66,9 +66,9 @@ void Interpolation::interpolate()
 				s_translates[obj->ident()][2] = obj->translate()[2];
 				break;
 			case ANIM_ROTATE:
-				s_rotates[obj->ident()][0] = fmod(obj->rotate()[0]);
-				s_rotates[obj->ident()][1] = fmod(obj->rotate()[1]);
-				s_rotates[obj->ident()][2] = fmod(obj->rotate()[2]);
+				s_rotates[obj->ident()][0] = fmod(obj->rotate()[0], 360);
+				s_rotates[obj->ident()][1] = fmod(obj->rotate()[1], 360);
+				s_rotates[obj->ident()][2] = fmod(obj->rotate()[2], 360);
 				break;
 			case ANIM_SCALE:
 				s_scales[obj->ident()][0] = obj->scale()[0];
@@ -76,8 +76,6 @@ void Interpolation::interpolate()
 				s_scales[obj->ident()][2] = obj->scale()[2];
 		}
 	}
-
-	std::cout << "initial translate of cube " << s_translates["obj"][0] << " " << s_translates["obj"][1] << " " << s_translates["obj"][2] << std::endl; 
 
 	while (now < stop)
 	{
@@ -188,7 +186,7 @@ void Animation::animate()
 					obj->set_translate(action.x, action.y, action.z);
 					break;
 				case ANIM_ROTATE:
-					//obj->set_rotate(action.x, action.y, action.z);
+					obj->set_rotate(action.x, action.y, action.z);
 					break;
 				case ANIM_SCALE:
 					obj->set_scale(action.x, action.y, action.z);
@@ -251,8 +249,6 @@ void Animation::dump()
 	Interpolation interp;
 
 	controller_size = _controller.size();
-	std::cout << std::endl << "Dumping ANIMATION '" << _ident << "'" << std::endl << std::endl;
-	std::cout << "Controller size: " << controller_size << std::endl;
 
 	for (int i = 0; i < controller_size; i++)
 	{
@@ -265,7 +261,6 @@ void Animation::dump()
 			action = _actions.front();
 			_actions.pop();
 			_actions.push(action);
-			std::cout << "Action => " << action.type << " (SceneObject: " << action.obj << ") (Values: " << action.x << ", " << action.y << ", " << action.z << ")" << std::endl;
 
 			continue;
 		}
@@ -275,12 +270,10 @@ void Animation::dump()
 		_interps.push(interp);
 
 		actions_size = interp.actions().size();
-		std::cout << "Interpolation => (Actions: " << actions_size << ") (Time: " << interp.time() << ")" << std::endl;
 
 		for (int j = 0; j < actions_size; j++)
 		{
 			action = interp.actions()[j];
-			std::cout << "..... Action => " << action.type << " (SceneObject: " << action.obj << ") (Values: " << action.x << ", " << action.y << ", " << action.z << ")" << std::endl;
 		}
 	}
 }
@@ -289,7 +282,7 @@ void Animation::dump()
 
 void Timeline::add_animation(Animation* anim, float start)
 {
-	_animations[start] = anim;
+	_animations[start].push_back(anim);
 }
 
 void Timeline::add_camera(Camera* cam, float start)
@@ -302,7 +295,7 @@ void Timeline::start()
 	_started = 1;
 	_start_tick = SDL_GetTicks();
 
-	typedef std::map<float, Animation*>::iterator it_type_a;
+	typedef std::map<float, std::vector<Animation*>>::iterator it_type_a;
 	typedef std::map<float, Camera*>::iterator it_type_c;
 
 	for (it_type_a i = _animations.begin(); i != _animations.end(); i++)
@@ -337,21 +330,24 @@ void Timeline::update()
 
 //		check if key is in _animations
 
-		std::map<float, Animation*>::iterator it_a = _animations.find(_times[i]);
+		std::map<float, std::vector<Animation*>>::iterator it_a = _animations.find(_times[i]);
 		if (it_a != _animations.end())
 		{
 //			key is an animation
-			std::cout << "Running animation => " << _animations[_times[i]]->ident() << std::endl;
 
-			std::thread anim_thr(Animation::animate_thread, _animations[_times[i]]);
-			anim_thr.detach();
+			for (int j = 0; j < _animations[_times[i]].size(); j++)
+			{
+				Animation* anim = _animations[_times[i]][j];
+
+				std::thread anim_thr(Animation::animate_thread, anim);
+				anim_thr.detach();
+			}
 		}
 
 		std::map<float, Camera*>::iterator it_c = _cameras.find(_times[i]);
 		if (it_c != _cameras.end())
 		{
 //			key is a camera
-			std::cout << "Changing camera..." << std::endl;
 
 			Scene::instance().set_default_camera(_cameras[_times[i]]);
 		}
@@ -361,7 +357,7 @@ void Timeline::update()
 	}
 }
 
-std::map<float, Animation*>& Timeline::animations()
+std::map<float, std::vector<Animation*>>& Timeline::animations()
 {
 	return _animations;
 }
