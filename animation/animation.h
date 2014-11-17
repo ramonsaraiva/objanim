@@ -84,14 +84,14 @@ class Timeline
 		void update();
 
 	public:
-		std::map<float, Animation*>& animations();
+		std::map<float, std::vector<Animation*>>& animations();
 
 	private:
 		Timeline() {}
 		Timeline(Timeline const&);
 		void operator=(Timeline const&);
 
-		std::map<float, Animation*> _animations;
+		std::map<float, std::vector<Animation*>> _animations;
 		std::map<float, Camera*> _cameras;
 
 		std::vector<float> _times;

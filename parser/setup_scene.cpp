@@ -93,6 +93,11 @@ object_cam->set_depth(1000);
 object_cam->set_direction(5, 0, 1);
 object_cam->set_position(20, 0, -3);
 Scene::instance().add_camera("object_cam", object_cam);
+Camera *object_cam_test = new Camera();
+object_cam_test->set_depth(1000);
+object_cam_test->set_direction(-10, 0, 1);
+object_cam_test->set_position(-5, 0, -5);
+Scene::instance().add_camera("object_cam_test", object_cam_test);
 Animation *object_prepare = new Animation("object_prepare");
 
 object_prepare->add_action(ANIM_TRANSLATE, "object_cube_fall_1", 14, 10, 0);
@@ -135,7 +140,7 @@ interpolation_0->add_action(ANIM_ROTATE, "object_cube_start", 1440, 0, 0);
 Animation *object_drop_first = new Animation("object_drop_first");
 
 Interpolation *interpolation_1 = object_drop_first->add_interp();
-interpolation_1->set_time(2);
+interpolation_1->set_time(4.5);
 interpolation_1->add_action(ANIM_TRANSLATE, "object_cube_fall_1", 14, 0, 0);
 interpolation_1->add_action(ANIM_TRANSLATE, "object_cube_fall_2", 13, 0, 0);
 interpolation_1->add_action(ANIM_TRANSLATE, "object_cube_fall_3", 12, 0, 0);
@@ -170,6 +175,7 @@ interpolation_1->add_action(ANIM_ROTATE, "object_cube_fall_15", 1440, 0, 0);
 Timeline::instance().add_animation(object_prepare, 0);
 Timeline::instance().add_animation(object_slide, 1);
 Timeline::instance().add_animation(object_drop_first, 1);
+Timeline::instance().add_camera(object_cam_test, 2.5);
 Scene::instance().set_default_camera("object_cam");
 
 }

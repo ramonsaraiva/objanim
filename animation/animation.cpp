@@ -289,7 +289,7 @@ void Animation::dump()
 
 void Timeline::add_animation(Animation* anim, float start)
 {
-	_animations[start] = anim;
+	_animations[start].push_back(anim);
 }
 
 void Timeline::add_camera(Camera* cam, float start)
@@ -302,7 +302,7 @@ void Timeline::start()
 	_started = 1;
 	_start_tick = SDL_GetTicks();
 
-	typedef std::map<float, Animation*>::iterator it_type_a;
+	typedef std::map<float, std::vector<Animation*>>::iterator it_type_a;
 	typedef std::map<float, Camera*>::iterator it_type_c;
 
 	for (it_type_a i = _animations.begin(); i != _animations.end(); i++)
@@ -337,14 +337,19 @@ void Timeline::update()
 
 //		check if key is in _animations
 
-		std::map<float, Animation*>::iterator it_a = _animations.find(_times[i]);
+		std::map<float, std::vector<Animation*>>::iterator it_a = _animations.find(_times[i]);
 		if (it_a != _animations.end())
 		{
 //			key is an animation
-			std::cout << "Running animation => " << _animations[_times[i]]->ident() << std::endl;
 
-			std::thread anim_thr(Animation::animate_thread, _animations[_times[i]]);
-			anim_thr.detach();
+			for (int j = 0; j < _animations[_times[i]].size(); j++)
+			{
+				Animation* anim = _animations[_times[i]][j];
+
+				std::cout << "Running animation => " << anim->ident() << std::endl;
+				std::thread anim_thr(Animation::animate_thread, anim);
+				anim_thr.detach();
+			}
 		}
 
 		std::map<float, Camera*>::iterator it_c = _cameras.find(_times[i]);
@@ -361,7 +366,7 @@ void Timeline::update()
 	}
 }
 
-std::map<float, Animation*>& Timeline::animations()
+std::map<float, std::vector<Animation*>>& Timeline::animations()
 {
 	return _animations;
 }

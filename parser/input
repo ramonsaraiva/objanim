@@ -52,7 +52,7 @@ animation slide
 
 animation drop_first
 {
-	interpolate 4
+	interpolate 4.5
 	{
 		translate cube_fall_1 14 0 0;
 		translate cube_fall_2 13 0 0;
