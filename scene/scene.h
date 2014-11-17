@@ -40,6 +40,7 @@ class SceneObject
 		GLuint _geo_vboid;
 		GLuint _idx_vboid;
 		int _idx_size;
+		std::string _matdir;
 
 		float _translate[3];
 		float _rotate[3];

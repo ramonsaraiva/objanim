@@ -6,6 +6,7 @@
 #include <map>
 
 #include <GL/glew.h>
+#include <SOIL/SOIL.h>
 
 #include "tinyobjloader/tiny_obj_loader.h"
 
@@ -52,7 +53,20 @@ void SceneObject::set_angle(const float a)
 
 void SceneObject::load_obj(const char* file)
 {
-	tinyobj::LoadObj(_shapes, _materials, file, NULL);
+	std::string f = std::string(file);
+	unsigned found = f.find_last_of("\\/");
+
+	if (found != std::string::npos)
+	{
+		f = f.substr(0, found);
+		f = f.append("/");
+		tinyobj::LoadObj(_shapes, _materials, file, f.c_str());
+		_matdir = f;
+	}
+	else
+	{
+		tinyobj::LoadObj(_shapes, _materials, file, NULL);
+	}
 }
 
 void SceneObject::build_vbo()
@@ -73,19 +87,28 @@ void SceneObject::build_vbo()
 				geometry.push_back(shape->mesh.positions[3*j+k]);
 			}
 
-			if (shape->mesh.normals.size() < 3*j+2)
+			if (shape->mesh.normals.size() < 3*j+3)
 			{
 				for (int k = 0; k < 3; k++)
-				{
 					geometry.push_back(1.0f);
-				}
-
-				continue;
+			}
+			else
+			{
+				for (int k = 0; k < 3; k++)
+					geometry.push_back(shape->mesh.normals[3*j+k]);
 			}
 
-			for (int k = 0; k < 3; k++)
+			if (shape->mesh.texcoords.size() < 2*j+2)
 			{
-				geometry.push_back(shape->mesh.normals[3*j+k]);
+				for (int k = 0; k < 2; k++)
+					geometry.push_back(0.0f);
+			}
+			else
+			{
+				for (int k = 0; k < 2; k++)
+				{
+					geometry.push_back(shape->mesh.texcoords[(2*j)+k]);
+				}
 			}
 		}
 
@@ -102,6 +125,12 @@ void SceneObject::build_vbo()
 	glGenBuffersARB(1, &_idx_vboid);
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, _idx_vboid);
 	glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof(GLfloat) * indices.size(), &indices.front(), GL_STATIC_DRAW_ARB);
+
+	if (_materials.size() > 0)
+	{
+		std::string f = _matdir + _materials[0].diffuse_texname;
+		GLuint tex2d = SOIL_load_OGL_texture(f.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
+	}
 }
 
 void SceneObject::render()
@@ -111,11 +140,14 @@ void SceneObject::render()
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, _geo_vboid);
 	glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, _idx_vboid);
 
+
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-	glNormalPointer(GL_FLOAT, sizeof(GLfloat) * 6, (float*)(sizeof(GLfloat) * 3));
-	glVertexPointer(3, GL_FLOAT, sizeof(GLfloat) * 6, 0);
+	glTexCoordPointer(3, GL_FLOAT, sizeof(GLfloat) * 8, (float*)(sizeof(GLfloat) * 5));
+	glNormalPointer(GL_FLOAT, sizeof(GLfloat) * 8, (float*)(sizeof(GLfloat) * 3));
+	glVertexPointer(3, GL_FLOAT, sizeof(GLfloat) * 8, 0);
 
 	glPushMatrix();
 

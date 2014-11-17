@@ -1,0 +1,9 @@
+load_model "resources/cube/cube.obj" c;
+
+camera cam
+{
+	position: 0 0 -5;
+	direction: 0 0 1;
+	depth: 1000;
+}
+set_default_camera cam;
