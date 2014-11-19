@@ -1,16 +1,25 @@
-load_primitive cube cube_1
+load_model "monkey.obj" to;
 
 camera cam
 {
-	position: 0 0 -1;
+	position: 0 0 -5;
 	direction: 0 0 1;
 	depth: 1000;
 }
 
 animation setup
 {
-	translate cube_1 1.3232323 1.32323232 1.32323232;
+	translate to 0 0 0;
+}
+
+animation xx
+{
+	interpolate 200
+	{
+		rotate to 0 5000 0;
+	}
 }
 
 add_to_timeline setup 0;
+add_to_timeline xx 0;
 set_default_camera cam;

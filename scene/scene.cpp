@@ -60,6 +60,7 @@ void SceneObject::load_obj(const char* file)
 	{
 		f = f.substr(0, found);
 		f = f.append("/");
+
 		tinyobj::LoadObj(_shapes, _materials, file, f.c_str());
 		_matdir = f;
 	}
