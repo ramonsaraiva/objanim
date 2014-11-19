@@ -37,10 +37,13 @@ class SceneObject
 		std::string _ident;
 		std::vector<tinyobj::shape_t> _shapes;
 		std::vector<tinyobj::material_t> _materials;
-		GLuint _geo_vboid;
+		GLuint _pos_vboid;
+		GLuint _normal_vboid;
+		GLuint _uv_vboid;
 		GLuint _idx_vboid;
 		int _idx_size;
 		std::string _matdir;
+		GLuint _tex2d;
 
 		float _translate[3];
 		float _rotate[3];

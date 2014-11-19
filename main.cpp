@@ -56,7 +56,7 @@ void setup_gl()
 	   glEnable(GL_CULL_FACE);
 	*/
 
-	glClearColor(0.95, 0.95, 0.95, 0);
+	glClearColor(0.8, 0.5, 0.4, 0);
 	glClearDepth(1.0);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHT0);

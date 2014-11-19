@@ -71,85 +71,72 @@ void SceneObject::load_obj(const char* file)
 
 void SceneObject::build_vbo()
 {
-	std::vector<GLfloat> geometry;
-	std::vector<GLfloat> normals;
-	std::vector<GLuint> indices;
-
+	std::vector<GLfloat> pos;
+	std::vector<GLfloat> normal;
+	std::vector<GLfloat> uv;
+	std::vector<GLuint> idx;
 
 	for (int i = 0; i < _shapes.size(); i++)
 	{
-		tinyobj::shape_t* shape = &_shapes[i];
+		for (int j = 0; j < _shapes[i].mesh.positions.size(); j++)
+			pos.push_back(_shapes[i].mesh.positions[j]);
 
-		for (int j = 0; j < shape->mesh.positions.size() / 3; j++)
-		{
-			for (int k = 0; k < 3; k++)
-			{
-				geometry.push_back(shape->mesh.positions[3*j+k]);
-			}
+		for (int j = 0; j < _shapes[i].mesh.normals.size(); j++)
+			normal.push_back(_shapes[i].mesh.normals[j]);
 
-			if (shape->mesh.normals.size() < 3*j+3)
-			{
-				for (int k = 0; k < 3; k++)
-					geometry.push_back(1.0f);
-			}
-			else
-			{
-				for (int k = 0; k < 3; k++)
-					geometry.push_back(shape->mesh.normals[3*j+k]);
-			}
+		for (int j = 0; j < _shapes[i].mesh.texcoords.size(); j++)
+			uv.push_back(_shapes[i].mesh.texcoords[j]);
 
-			if (shape->mesh.texcoords.size() < 2*j+2)
-			{
-				for (int k = 0; k < 2; k++)
-					geometry.push_back(0.0f);
-			}
-			else
-			{
-				for (int k = 0; k < 2; k++)
-				{
-					geometry.push_back(shape->mesh.texcoords[2*j+k]);
-				}
-			}
-		}
-
-		for (int i = 0; i < shape->mesh.indices.size(); i++)
-		{
-			indices.push_back(shape->mesh.indices[i]);
-		}
+		for (int j = 0; j < _shapes[i].mesh.indices.size(); j++)
+			idx.push_back(_shapes[i].mesh.indices[j]);
 	}
 
-	_idx_size = indices.size();
+	glGenBuffers(1, &_pos_vboid);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _pos_vboid);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLfloat) * pos.size(), &pos.front(), GL_STATIC_DRAW);
 
-	glGenBuffersARB(1, &_geo_vboid);
-	glBindBufferARB(GL_ARRAY_BUFFER_ARB, _geo_vboid);
-	glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof(GLfloat) * geometry.size(), &geometry.front(), GL_STATIC_DRAW_ARB);
+	_idx_size = idx.size();
 
-	glGenBuffersARB(1, &_idx_vboid);
-	glBindBufferARB(GL_ARRAY_BUFFER_ARB, _idx_vboid);
-	glBufferDataARB(GL_ARRAY_BUFFER_ARB, sizeof(GLfloat) * indices.size(), &indices.front(), GL_STATIC_DRAW_ARB);
+	glGenBuffers(1, &_normal_vboid);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _normal_vboid);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLfloat) * normal.size(), &normal.front(), GL_STATIC_DRAW);
+
+	glGenBuffers(1, &_uv_vboid);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _uv_vboid);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLfloat) * uv.size(), &uv.front(), GL_STATIC_DRAW);
+
+	glGenBuffers(1, &_idx_vboid);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _idx_vboid);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLfloat) * idx.size(), &idx.front(), GL_STATIC_DRAW);
 
 	if (_materials.size() > 0)
 	{
 		std::string f = _matdir + _materials[0].diffuse_texname;
-		GLuint tex2d = SOIL_load_OGL_texture(f.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
+		_tex2d = SOIL_load_OGL_texture(f.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
 	}
+	else
+		_tex2d = NULL;
 }
 
 void SceneObject::render()
 {
-	//glColor3f(0.0f, 0.5f, 1.0f);
-
-	glBindBufferARB(GL_ARRAY_BUFFER_ARB, _geo_vboid);
-	glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, _idx_vboid);
-
-
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-	glTexCoordPointer(3, GL_FLOAT, sizeof(GLfloat) * 8, (float*)(sizeof(GLfloat) * 5));
-	glNormalPointer(GL_FLOAT, sizeof(GLfloat) * 8, (float*)(sizeof(GLfloat) * 3));
-	glVertexPointer(3, GL_FLOAT, sizeof(GLfloat) * 8, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, _pos_vboid);
+	glVertexPointer(3, GL_FLOAT, 0, 0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, _normal_vboid);
+	glNormalPointer(GL_FLOAT, 0, 0);
+
+	if (_tex2d)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, _uv_vboid);
+		glTexCoordPointer(2, GL_FLOAT, 0, 0);
+	}
+	else
+		glColor3f(0.0f, 0.5f, 1.0f);
 
 	glPushMatrix();
 
@@ -159,7 +146,8 @@ void SceneObject::render()
 	glRotatef(_rotate[2], 0, 0, 1);
 	glScalef(_scale[0], _scale[1], _scale[2]);
 
-	glDrawElements(GL_TRIANGLES, _idx_size, GL_UNSIGNED_INT, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _idx_vboid);
+	glDrawElements(GL_TRIANGLES, _idx_size, GL_UNSIGNED_INT, NULL);
 
 	glPopMatrix();
 

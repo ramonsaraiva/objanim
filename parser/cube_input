@@ -1,0 +1,205 @@
+load_model "resources/dragon/dragon.obj" c1;
+load_model "resources/dragon/dragon.obj" c2;
+load_model "resources/dragon/dragon.obj" c3;
+load_model "resources/dragon/dragon.obj" c4;
+load_model "resources/dragon/dragon.obj" c5;
+load_model "resources/dragon/dragon.obj" c6;
+load_model "resources/dragon/dragon.obj" c7;
+load_model "resources/dragon/dragon.obj" c8;
+load_model "resources/dragon/dragon.obj" c9;
+load_model "resources/dragon/dragon.obj" c10;
+load_model "resources/dragon/dragon.obj" c11;
+load_model "resources/dragon/dragon.obj" c12;
+load_model "resources/dragon/dragon.obj" c13;
+load_model "resources/dragon/dragon.obj" c14;
+load_model "resources/dragon/dragon.obj" c15;
+
+camera cam
+{
+	position: 5 2 -4;
+	direction: -1 -1 1;
+	depth: 100;
+}
+
+animation prepare
+{
+	scale c1 0 0 0;
+	scale c2 0 0 0;
+	scale c3 0 0 0;
+	scale c4 0 0 0;
+	scale c5 0 0 0;
+	scale c6 0 0 0;
+	scale c7 0 0 0;
+	scale c8 0 0 0;
+	scale c9 0 0 0;
+	scale c10 0 0 0;
+	scale c11 0 0 0;
+	scale c12 0 0 0;
+	scale c13 0 0 0;
+	scale c14 0 0 0;
+	scale c15 0 0 0;
+
+	translate c1 0 0 0;
+	translate c2 -1 0 0;
+	translate c3 -2 0 0;
+	translate c4 -2 0 1;
+	translate c5 -2 0 2;
+	translate c6 -1 0 2;
+}
+
+animation c1a
+{
+	interpolate 0.6 { scale c1 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c1 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c1 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c1 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c1 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c1 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c1 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c1 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c1 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c1 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c1 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c1 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c1 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c1 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c1 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c1 1.0 1.0 1.0; }
+}
+
+animation c2a
+{
+	scale c2 1 1 1;
+	interpolate 0.6 { scale c2 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c2 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c2 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c2 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c2 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c2 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c2 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c2 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c2 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c2 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c2 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c2 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c2 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c2 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c2 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c2 1.0 1.0 1.0; }
+}
+
+animation c3a
+{
+	scale c3 1 1 1;
+	interpolate 0.6 { scale c3 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c3 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c3 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c3 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c3 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c3 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c3 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c3 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c3 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c3 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c3 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c3 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c3 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c3 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c3 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c3 1.0 1.0 1.0; }
+}
+
+animation c4a
+{
+	scale c4 1 1 1;
+	interpolate 0.6 { scale c4 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c4 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c4 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c4 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c4 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c4 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c4 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c4 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c4 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c4 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c4 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c4 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c4 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c4 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c4 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c4 1.0 1.0 1.0; }
+}
+
+animation c5a
+{
+	scale c5 1 1 1;
+	interpolate 0.6 { scale c5 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c5 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c5 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c5 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c5 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c5 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c5 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c5 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c5 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c5 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c5 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c5 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c5 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c5 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c5 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c5 1.0 1.0 1.0; }
+}
+
+animation c6a
+{
+	scale c6 1 1 1;
+	interpolate 0.6 { scale c6 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c6 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c6 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c6 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c6 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c6 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c6 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c6 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c6 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c6 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c6 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c6 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c6 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c6 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c6 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c6 1.0 1.0 1.0; }
+}
+
+animation c7a
+{
+	scale c7 1 1 1;
+	interpolate 0.6 { scale c7 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c7 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c7 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c7 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c7 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c7 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c7 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c7 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c7 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c7 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c7 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c7 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c7 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c7 1.0 1.0 1.0; }
+	interpolate 0.6 { scale c7 0.1 0.1 0.1; }
+	interpolate 0.3 { scale c7 1.0 1.0 1.0; }
+}
+
+add_to_timeline prepare 0;
+add_to_timeline c1a 1;
+add_to_timeline c2a 2.5;
+add_to_timeline c3a 4.0;
+add_to_timeline c4a 5.5;
+add_to_timeline c5a 7.0;
+add_to_timeline c6a 8.5;
+add_to_timeline c7a 9.9;
+
+set_default_camera cam;
