@@ -120,7 +120,9 @@ void SceneObject::build_vbo()
 
 void SceneObject::render()
 {
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	if (_tex2d)
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 
@@ -132,11 +134,11 @@ void SceneObject::render()
 
 	if (_tex2d)
 	{
+		glBindTexture(GL_TEXTURE_2D, _tex2d);
+
 		glBindBuffer(GL_ARRAY_BUFFER, _uv_vboid);
 		glTexCoordPointer(2, GL_FLOAT, 0, 0);
 	}
-	else
-		glColor3f(0.0f, 0.5f, 1.0f);
 
 	glPushMatrix();
 
