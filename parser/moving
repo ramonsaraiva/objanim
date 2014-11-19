@@ -1,0 +1,94 @@
+load_model "primitives/wall/cube.obj" wall;
+load_model "primitives/wall/cube.obj" wall2;
+load_model "primitives/wall/cube.obj" wall3;
+
+load_model "primitives/floor/cube.obj" floor;
+load_model "primitives/floor/cube.obj" floor2;
+load_model "primitives/floor/cube.obj" floor3;
+
+load_model "primitives/cube/cube.obj" box;
+
+camera front
+{
+	position: 0 0 -2;
+	direction: 0 0 1;
+	depth: 1000;
+}
+
+camera side
+{
+	position: 5 0 -2;
+	direction: -3 0 1;
+	depth: 1000;
+}
+
+camera side2
+{
+	position: -5 0 -2;
+	direction: 3 0 1;
+	depth: 1000;
+}
+
+animation setup
+{
+	translate wall 0 1.6 7.2;
+	translate wall2 -12 1.6 7.2;
+	translate wall3 -24 1.6 7.2;
+	scale wall 12 8 0.2;
+	scale wall2 12 8 0.2;
+	scale wall3 12 8 0.2;
+
+	translate floor 0 -2 2;
+	translate floor2 -12 -2 2;
+	translate floor3 -24 -2 2;
+	scale floor 12 0.2 10;
+	scale floor2 12 0.2 10;
+	scale floor3 12 0.2 10;
+
+	translate box 0 0 2;
+}
+
+animation dancing_box
+{
+	interpolate 10
+	{
+		rotate box 0 1000 1000;
+	}
+
+	interpolate 10
+	{
+		rotate box 0 -1000 -1000;
+	}
+}
+
+animation moving_floor
+{
+	interpolate 20
+	{
+		translate floor 12 -2 2;
+		translate floor2 0 -2 2;
+		translate floor3 -12 -2 2;
+	}
+}
+
+animation moving_wall
+{
+	interpolate 20
+	{
+		translate wall 12 1.6 7.2;
+		translate wall2 0 1.6 7.2;
+		translate wall3 -12 1.6 7.2;
+	}
+}
+
+add_to_timeline setup 0;
+
+add_to_timeline dancing_box 2;
+add_to_timeline moving_floor 2;
+add_to_timeline moving_wall 2;
+
+add_to_timeline side 8;
+add_to_timeline side2 14;
+add_to_timeline front 20;
+
+set_default_camera front;
