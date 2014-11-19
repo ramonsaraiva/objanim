@@ -7,3 +7,4 @@ parser/parser.cpp
 parser/parser.hpp
 parser/parser.h
 parser/parser
+*.*~
