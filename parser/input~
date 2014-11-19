@@ -1,44 +1,235 @@
-load_primitive cube cubo;
+load_model "primitives/cube/cube.obj" cube_start;
+load_model "primitives/cube/cube.obj" cube_drop_1;
+load_model "primitives/cube/cube.obj" cube_drop_2;
+load_model "primitives/cube/cube.obj" cube_drop_3;
+load_model "primitives/cube/cube.obj" cube_drop_4;
+load_model "primitives/cube/cube.obj" cube_drop_5;
+load_model "primitives/cube/cube.obj" cube_drop_6;
+load_model "primitives/cube/cube.obj" cube_drop_7;
+load_model "primitives/cube/cube.obj" cube_drop_8;
+load_model "primitives/cube/cube.obj" cube_drop_9;
+load_model "primitives/cube/cube.obj" cube_drop_10;
+load_model "primitives/cube/cube.obj" cube_drop_11;
+load_model "primitives/cube/cube.obj" cube_drop_12;
+load_model "primitives/cube/cube.obj" cube_drop_13;
+load_model "primitives/cube/cube.obj" cube_drop_14;
+load_model "primitives/cube/cube.obj" cube_drop_15;
+load_model "primitives/cube/cube.obj" cube_drop_16;
+load_model "primitives/cube/cube.obj" cube_drop_17;
+load_model "primitives/cube/cube.obj" cube_drop_18;
+load_model "primitives/cube/cube.obj" cube_drop_19;
+load_model "primitives/cube/cube.obj" cube_drop_20;
+load_model "primitives/cube/cube.obj" cube_drop_21;
+load_model "primitives/cube/cube.obj" cube_drop_22;
+load_model "primitives/cube/cube.obj" cube_drop_23;
+load_model "primitives/cube/cube.obj" cube_drop_24;
+load_model "primitives/cube/cube.obj" cube_drop_25;
+load_model "primitives/cube/cube.obj" cube_drop_26;
+load_model "primitives/cube/cube.obj" cube_drop_27;
+load_model "primitives/cube/cube.obj" cube_drop_28;
+load_model "primitives/cube/cube.obj" cube_drop_29;
+load_model "primitives/cube/cube.obj" cube_drop_30;
+load_model "primitives/cube/cube.obj" cube_drop_31;
+load_model "primitives/cube/cube.obj" cube_drop_32;
+load_model "primitives/cube/cube.obj" cube_drop_33;
+load_model "primitives/cube/cube.obj" cube_drop_34;
+load_model "primitives/cube/cube.obj" cube_drop_35;
 
-global_translate cubo 0 0 3;
+load_model "primitives/cube/cube.obj" floor;
 
-camera a {
-    position: 0 0 0;
-    direction: 0 0 1;
-    depth: 100;
+camera cam
+{
+	position: 20 3 -5;
+	direction: 5 -1 1;
+	depth: 1000;
 }
 
-animation trans{
-    interpolate 5 {
-        translate cubo 0 0 5;
-    }
+animation prepare
+{
+	translate cube_drop_1 14 10 0;
+	translate cube_drop_2 13 14 0;
+	translate cube_drop_3 12 18 0;
+	translate cube_drop_4 11 22 0;
+	translate cube_drop_5 10 26 0;
+	translate cube_drop_6 9 30 0;
+	translate cube_drop_7 8 34 0;
+	translate cube_drop_8 7 38 0;
+	translate cube_drop_9 6 42 0;
+	translate cube_drop_10 5 46 0;
+	translate cube_drop_11 4 50 0;
+	translate cube_drop_12 3 54 0;
+	translate cube_drop_13 2 58 0;
+	translate cube_drop_14 1 62 0;
+	translate cube_drop_15 0 66 0;
+	
+	translate cube_drop_16 0 40 -1;
+	translate cube_drop_17 0 36 -2;
+	translate cube_drop_18 0 32 -3;
+	translate cube_drop_19 0 28 -4;
+	translate cube_drop_20 0 24 -5;
 
+	translate cube_drop_21 30 0 0;
+	translate cube_drop_22 30 0 0;
+	translate cube_drop_23 30 0 0;
+	translate cube_drop_24 30 0 0;
+	translate cube_drop_25 30 0 0;
+	translate cube_drop_26 30 0 0;
+	translate cube_drop_27 30 0 0;
+	translate cube_drop_28 30 0 0;
+	translate cube_drop_29 30 0 0;
+	translate cube_drop_30 30 0 0;
+	translate cube_drop_31 30 0 0;
+	translate cube_drop_32 30 0 0;
+	translate cube_drop_33 30 0 0;
+	translate cube_drop_34 30 0 0;
+	translate cube_drop_35 30 0 0;
+
+	scale floor 15 0.1 5;
+	translate floor 7.5 -5 -2.5;
+
+	interpolate 7.5
+	{
+		rotate floor 0 2880 0;
+	}
 }
 
-animation rot{
-    interpolate 5 {
-        rotate cubo 45 45 45;
-        scale cubo 3 3 3;
-
-    }
+animation slide
+{
+	interpolate 4
+	{
+		translate cube_start 15 0 0;
+		rotate cube_start 1440 0 0;
+	}
 }
 
+animation drop_first
+{
+	interpolate 4.5
+	{
 
-
-animation trans2 {
-
-    interpolate 5 {
-        translate cubo 0 5 0;
-    }
-
+		rotate cube_drop_1 1440 0 0;
+		rotate cube_drop_2 1440 0 0;
+		rotate cube_drop_3 1440 0 0;
+		rotate cube_drop_4 1440 0 0;
+		rotate cube_drop_5 1440 0 0;
+		rotate cube_drop_6 1440 0 0;
+		rotate cube_drop_7 1440 0 0;
+		rotate cube_drop_8 1440 0 0;
+		rotate cube_drop_9 1440 0 0;
+		rotate cube_drop_10 1440 0 0;
+		rotate cube_drop_11 1440 0 0;
+		rotate cube_drop_12 1440 0 0;
+		rotate cube_drop_13 1440 0 0;
+		rotate cube_drop_14 1440 0 0;
+		rotate cube_drop_15 1440 0 0;
+	}
 }
 
+animation drop_sec
+{
+	interpolate 3
+	{
+		translate cube_drop_16 0 0 -1;
+		translate cube_drop_17 0 0 -2;
+		translate cube_drop_18 0 0 -3;
+		translate cube_drop_19 0 0 -4;
+		translate cube_drop_20 0 0 -5;
 
-add_to_timeline trans 2;
+		rotate cube_drop_16 1440 0 0;
+		rotate cube_drop_17 1440 0 0;
+		rotate cube_drop_18 1440 0 0;
+		rotate cube_drop_19 1440 0 0;
+		rotate cube_drop_20 1440 0 0;
+	}
+}
 
-add_to_timeline rot 7;
+animation slide_half
+{
+	interpolate 0.5
+	{
+		translate cube_drop_21 1 0 -5;
+	}
 
-add_to_timeline trans 212;
+	interpolate 0.5
+	{
+		translate cube_drop_22 2 0 -5;
+	}
 
-set_default_camera a;
+	interpolate 0.5
+	{
+		translate cube_drop_23 3 0 -5;
+	}
 
+	interpolate 0.5
+	{
+		translate cube_drop_24 4 0 -5;
+	}
+
+	interpolate 0.5
+	{
+		translate cube_drop_25 5 0 -5;
+	}
+
+	interpolate 0.5
+	{
+		translate cube_drop_26 6 0 -5;
+	}
+
+	interpolate 0.5
+	{
+		translate cube_drop_27 7 0 -5;
+	}
+
+	interpolate 0.5
+	{
+		translate cube_drop_28 8 0 -5;
+	}
+
+	interpolate 0.5
+	{
+		translate cube_drop_29 9 0 -5;
+	}
+
+	interpolate 0.5
+	{
+		translate cube_drop_30 10 0 -5;
+	}
+
+	interpolate 0.5
+	{
+		translate cube_drop_31 11 0 -5;
+	}
+
+	interpolate 0.5
+	{
+		translate cube_drop_32 12 0 -5;
+	}
+
+	interpolate 0.5
+	{
+		translate cube_drop_33 13 0 -5;
+	}
+
+	interpolate 0.5
+	{
+		translate cube_drop_34 14 0 -5;
+	}
+
+	interpolate 0.5
+	{
+		translate cube_drop_35 15 0 -5;
+	}
+
+	interpolate 1
+	{
+		translate floor 7 -0.6 -2.5;
+	}
+}
+
+add_to_timeline prepare 0;
+add_to_timeline slide 1;
+add_to_timeline drop_first 1;
+add_to_timeline drop_sec 1;
+add_to_timeline slide_half 1;
+
+set_default_camera cam;

@@ -1,4 +1,4 @@
-load_model "resources/cube/cube.obj" c;
+load_model "primitives/cube/cube.obj" c;
 
 camera cam
 {

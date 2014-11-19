@@ -107,13 +107,15 @@ void SceneObject::build_vbo()
 			{
 				for (int k = 0; k < 2; k++)
 				{
-					geometry.push_back(shape->mesh.texcoords[(2*j)+k]);
+					geometry.push_back(shape->mesh.texcoords[2*j+k]);
 				}
 			}
 		}
 
 		for (int i = 0; i < shape->mesh.indices.size(); i++)
+		{
 			indices.push_back(shape->mesh.indices[i]);
+		}
 	}
 
 	_idx_size = indices.size();
@@ -135,7 +137,7 @@ void SceneObject::build_vbo()
 
 void SceneObject::render()
 {
-	glColor3f(0.0f, 0.5f, 1.0f);
+	//glColor3f(0.0f, 0.5f, 1.0f);
 
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, _geo_vboid);
 	glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, _idx_vboid);
