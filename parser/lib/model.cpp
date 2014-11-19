@@ -5,11 +5,13 @@ Model::Model(string modelName, string varName, bool isPrimitive)
     setName(varName);
     type = TYPE;
 
-    primitive = isPrimitive;
+	primitive = isPrimitive;
     mName = modelName;
-    if (primitive) {
-        mName += ".obj";
-    }
+}
+
+string Model::primitive_path()
+{
+	return "primitives/" + mName + "/" + mName + ".obj";
 }
 
 string Model::generate()
@@ -17,7 +19,7 @@ string Model::generate()
     string result = "SceneObject *" + getName() + " = new SceneObject(\"" + getName() + "\");\n";
 
     if (primitive) {
-        result += getName() + "->load_obj(\"" + mName + "\");\n";
+        result += getName() + "->load_obj(\"" + primitive_path() + "\");\n";
     } else {
         result += getName() + "->load_obj(" + mName + ");\n";
     }

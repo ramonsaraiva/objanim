@@ -14,6 +14,7 @@ class Model : public Command, public Object
         Model(string modelName, string varName, bool isPrimitive);
         string generate();
     private:
-        bool primitive;
+		bool primitive;
         string mName;
+        string primitive_path();
 };
