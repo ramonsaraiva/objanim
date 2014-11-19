@@ -2,7 +2,7 @@
 
 import random
 
-cubes = 100;
+cubes = 500;
 
 t_val = 10;
 
@@ -11,13 +11,13 @@ x_max = t_val;
 y_min = -t_val;
 y_max = t_val;
 z_min = 0;
-z_max = t_val / 2;
+z_max = t_val;
 
-time = 10;
+time = 20;
 
 rotate = True
 
-r_val = 1000;
+r_val = 2000;
 
 rx_min = -r_val;
 rx_max = r_val;
@@ -46,6 +46,8 @@ f.write('\n');
 
 # camera
 f.write('camera cam { position: 0 0 -5; direction: 0 0 1; depth: 1000; }\n');
+f.write('camera cam2 { position: 15 0 1; direction: -8 0 1; depth: 1000; }\n');
+f.write('camera cam3 { position: -15 0 1; direction: 8 0 1; depth: 1000; }\n');
 
 # setup
 f.write('animation setup {\n');
@@ -84,6 +86,8 @@ f.write('\t}\n}\n');
 
 f.write('add_to_timeline setup 0;\n');
 f.write('add_to_timeline mess 0;\n');
+f.write('add_to_timeline cam2 {0};\n'.format(time * 0.33));
+f.write('add_to_timeline cam3 {0};\n'.format(time * 0.66));
 f.write('set_default_camera cam;\n');
 
 f.close();
