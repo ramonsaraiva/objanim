@@ -2,7 +2,7 @@
 
 import random
 
-cubes = 500;
+cubes = 100;
 
 t_val = 10;
 
