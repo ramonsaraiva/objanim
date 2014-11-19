@@ -16,6 +16,7 @@ int linenum = 1;
 %%
 [ \t] ;
 \n {linenum++;} ;
+\/\/.* ;
 -?[0-9]+(\.[0-9]+)? SAVE_TOKEN; return TDOUBLE;
 (cube|cone|sphere|plane) SAVE_TOKEN; return TPRIMITIVE;
 "=" return TEQUAL;
@@ -56,5 +57,5 @@ int linenum = 1;
 
 
 
-. printf("Unknown token!\n"); yyterminate();
+. printf("Unknown token %s at line %d !\n", yytext, linenum); yyterminate();
 %%
