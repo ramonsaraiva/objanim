@@ -37,6 +37,7 @@ load_primitive cube cube_drop_35;
 
 load_primitive cube floor;
 
+
 camera cam
 {
 	position: 20 3 -5;

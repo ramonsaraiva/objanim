@@ -12,7 +12,7 @@
 #include "animation/animation.h"
 #include "input/input.h"
 
-#include "parser/setup_scene.cpp"
+#include "parser/setup_scene.h"
 
 
 #define WIDTH 900

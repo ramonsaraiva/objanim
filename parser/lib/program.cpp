@@ -10,7 +10,7 @@ string Program::generate()
     CommandsIterator it = commands->begin();
     string result = "/*\n* ObjAnim - Code Generator\n*/\n\n";
 
-    result += "#include \"camera/camera.h\"\n#include \"scene/scene.h\"\n#include \"animation/animation.h\"\n\n";
+    result += "#include \"camera/camera.h\"\n#include \"scene/scene.h\"\n#include \"animation/animation.h\"\n#include \"setup_scene.h\"\n\n";
 
     result += "void setup_scene()\n{\n";
     for (; it != commands->end(); ++it) {

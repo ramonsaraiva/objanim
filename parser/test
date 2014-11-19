@@ -1,0 +1,16 @@
+load_primitive cube cube_1
+
+camera cam
+{
+	position: 0 0 -1;
+	direction: 0 0 1;
+	depth: 1000;
+}
+
+animation setup
+{
+	translate cube_1 1.3232323 1.32323232 1.32323232;
+}
+
+add_to_timeline setup 0;
+set_default_camera cam;
