@@ -2,9 +2,17 @@
 if [ "$#" -lt 1 ]
 then
 	echo "No input file specified, reading form default (input) file.."
-	cat input | ./parser > setup_scene.cpp
+	FILE="input"
 else
-	cat $1 | ./parser > setup_scene.cpp
+	FILE="$1"
 fi
 
-echo "Created file setup_scene.cpp"
+RESULT=$(cat "$FILE" | ./parser)
+
+if [ $? -ne 0 ]; then
+    echo "$RESULT"
+else
+    echo "$RESULT" > setup_scene.cpp
+    echo "Created file setup_scene.cpp"
+fi
+
