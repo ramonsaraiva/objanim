@@ -11,6 +11,7 @@ RESULT=$(cat "$FILE" | ./parser)
 
 if [ $? -ne 0 ]; then
     echo "$RESULT"
+	exit 1
 else
     echo "$RESULT" > setup_scene.cpp
     echo "Created file setup_scene.cpp"

@@ -7,6 +7,10 @@ then
 else
 	./run.sh $1
 fi
+if [ $? -ne 0 ]; then
+	exit 1
+fi
+
 cd ..
 make -B
 ./build/bin/objanim
