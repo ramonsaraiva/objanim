@@ -116,7 +116,8 @@ void SceneObject::build_vbo()
 
 		if (Scene::instance().textures().find(texname()) == Scene::instance().textures().end())
 		{
-			Scene::instance().textures()[texname()] = SOIL_load_OGL_texture(texname().c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
+			GLuint texid = SOIL_load_OGL_texture(texname().c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
+			Scene::instance().textures()[texname()] = texid;
 		}
 	}
 }
@@ -136,6 +137,8 @@ void SceneObject::render()
 	if (!_texname.empty())
 	{
 		glBindTexture(GL_TEXTURE_2D, Scene::instance().textures()[texname()]);
+
+		//std::cout << "loaded tex " << texname() << " with id " << Scene::instance().textures()[texname()] << std::endl;
 
 		glBindBuffer(GL_ARRAY_BUFFER, _uv_vboid);
 		glTexCoordPointer(2, GL_FLOAT, 0, 0);

@@ -1,4 +1,4 @@
-load_model "monkey.obj" to;
+load_primitive sphere to;
 
 camera cam
 {

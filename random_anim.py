@@ -2,7 +2,12 @@
 
 import random
 
-cubes = 100;
+random_primitive = True
+
+primitives = ['cube', 'torus', 'sphere', 'monkey']
+primitive = 'sphere'
+
+objects = 500;
 
 t_val = 10;
 
@@ -40,19 +45,21 @@ sz_max = s_val;
 f = open('parser/random_anim', 'w')
 
 # load cubes
-for i in range(cubes):
-	f.write('load_primitive cube cube_{0};\n'.format(i))
+for i in range(objects):
+	p = primitive
+	if random_primitive: p = random.choice(primitives)
+	f.write('load_primitive {0} cube_{1};\n'.format(p, i))
 f.write('\n');
 
 # camera
-f.write('camera cam { position: 0 0 -5; direction: 0 0 1; depth: 1000; }\n');
+f.write('camera cam { position: 0 0 -7; direction: 0 0 1; depth: 1000; }\n');
 f.write('camera cam2 { position: 15 0 1; direction: -8 0 1; depth: 1000; }\n');
 f.write('camera cam3 { position: -15 0 1; direction: 8 0 1; depth: 1000; }\n');
 
 # setup
 f.write('animation setup {\n');
 
-for i in range(cubes):
+for i in range(objects):
 	f.write('\ttranslate cube_{0} {1} {2} {3};\n'.format(i,
 													 random.uniform(x_min, x_max),
 													 random.uniform(y_min, y_max),
@@ -65,7 +72,7 @@ f.write('}\n');
 f.write('animation mess {\n');
 f.write('\tinterpolate {0} {1}\n'.format(time, '{'));
 
-for i in range(cubes):
+for i in range(objects):
 	f.write('\t\ttranslate cube_{0} {1} {2} {3};\n'.format(i, 
 														   random.uniform(x_min, x_max),
 														   random.uniform(y_min, y_max),
