@@ -32,6 +32,8 @@ class SceneObject
 		float* translate();
 		float* rotate();
 		float* scale();
+
+		std::string texname();
 	
 	private:
 		std::string _ident;
@@ -42,8 +44,9 @@ class SceneObject
 		GLuint _uv_vboid;
 		GLuint _idx_vboid;
 		int _idx_size;
+
 		std::string _matdir;
-		GLuint _tex2d;
+		std::string _texname;
 
 		float _translate[3];
 		float _rotate[3];
@@ -72,6 +75,7 @@ class Scene
 		void render();
 		Camera* default_camera();
 		std::map<std::string, SceneObject*>& objects();
+		std::map<std::string, GLuint>& textures();
 
 		void dump();
 
@@ -84,6 +88,7 @@ class Scene
 		Camera* _default_camera;
 
 		std::map<std::string, SceneObject*> _objects;
+		std::map<std::string, GLuint> _textures;
 };
 
 #endif

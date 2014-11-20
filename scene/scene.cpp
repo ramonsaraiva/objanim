@@ -112,18 +112,18 @@ void SceneObject::build_vbo()
 
 	if (_materials.size() > 0)
 	{
-		std::string f = _matdir + _materials[0].diffuse_texname;
-		_tex2d = SOIL_load_OGL_texture(f.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
+		_texname = _materials[0].diffuse_texname;
+
+		if (Scene::instance().textures().find(texname()) == Scene::instance().textures().end())
+		{
+			Scene::instance().textures()[texname()] = SOIL_load_OGL_texture(texname().c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
+		}
 	}
-	else
-		_tex2d = NULL;
 }
 
 void SceneObject::render()
 {
-	if (_tex2d)
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 
@@ -133,9 +133,9 @@ void SceneObject::render()
 	glBindBuffer(GL_ARRAY_BUFFER, _normal_vboid);
 	glNormalPointer(GL_FLOAT, 0, 0);
 
-	if (_tex2d)
+	if (!_texname.empty())
 	{
-		glBindTexture(GL_TEXTURE_2D, _tex2d);
+		glBindTexture(GL_TEXTURE_2D, Scene::instance().textures()[texname()]);
 
 		glBindBuffer(GL_ARRAY_BUFFER, _uv_vboid);
 		glTexCoordPointer(2, GL_FLOAT, 0, 0);
@@ -191,6 +191,11 @@ float* SceneObject::scale()
 	return _scale;
 }
 
+std::string SceneObject::texname()
+{
+	return _matdir + _texname;
+}
+
 //	Scene
 
 void Scene::add_camera(std::string ident, Camera* camera)
@@ -231,6 +236,11 @@ Camera* Scene::default_camera()
 std::map<std::string, SceneObject*>& Scene::objects()
 {
 	return _objects;
+}
+
+std::map<std::string, GLuint>& Scene::textures()
+{
+	return _textures;
 }
 
 void Scene::dump()
