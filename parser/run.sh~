@@ -1,2 +1,0 @@
-#!/bin/bash
-cat input | ./parser > output.cpp
